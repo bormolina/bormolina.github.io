@@ -171,11 +171,13 @@ header{
 #skills{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     font-size: var(--size-text-l);
 }
 
 .skills-item{
     width: 33.33%;
+    min-width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
