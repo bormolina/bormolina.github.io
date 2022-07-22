@@ -3,15 +3,28 @@
     --color-bg2: #111;
     --color-t1: #fff;
     --color-t2: #fff;
+    --color-timportant: cornsilk;
     --color-darkblue: #183153;
     --color-redYT: #e92e00;
-    --color-pink: #e73c7e;
     --size-text-m: 1.2rem;
+    --size-text-l: 1.75rem;
     --size-text-xl: 2.5rem;
     --gap-m: 1rem;
     --gap-l: 1.25rem;
     --gap-xl: 1.5rem;
     --gap-xxl: 2rem;
+}
+
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
 }
 
 body{
@@ -24,6 +37,7 @@ body{
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     font-family: 'Roboto', sans-serif;
+
 }
 
 h1{
@@ -41,18 +55,6 @@ h3{
     letter-spacing: 0.2rem;
 }
 
-@keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-}
-
 a{
     text-decoration: none;
     color: inherit;
@@ -60,7 +62,7 @@ a{
 
 main{
     max-width: 1200px;
-    margin: auto;
+    margin: var(--gap-l) auto;
     display: grid;
     grid-template-rows: repeat(5, auto);
     grid-template-columns: repeat(6, 1fr);
@@ -119,10 +121,6 @@ header{
     color: var(--color-t1);
 }
 
-.item-bio:hover{
-    cursor: pointer;
-}
-
 .item-bio>h3{
     margin: 0px;
 }
@@ -131,20 +129,21 @@ header{
     font-size: var(--size-text-xl);
 }
 
-.item-bio:nth-child(1){
+#about-me{
     background-color: var(--color-bg1);
 }
 
-#skills{
-    background-color: var(--color-darkblue);
-}
-
-#resume{
+#youtube{
     background-color: var(--color-redYT);
 }
 
-#github{
-    background-color: var(--color-pink);
+#resume{
+    background-color: var(--color-darkblue);
+    
+}
+
+#contact{
+    background-color: chocolate;
 }
 
 #info{
@@ -160,6 +159,33 @@ header{
 #info-text{
     width: 90%;
     margin: auto;
+}
+
+
+#skills-title{
+    text-align: center;
+    font-size: var(--size-text-l);
+    letter-spacing: 0.15rem;
+}
+
+#skills{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--size-text-l);
+}
+
+.skills-item{
+    width: 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.skills-item i{
+    font-size: var(--size-text-xl);
+    margin-right: 0.5em;
+    color: var(--color-t1);
 }
 
 #networks{
@@ -180,12 +206,14 @@ header{
 .important-text{
     font-size: 1.25rem;
     font-weight: 600;
+    color: var(--color-timportant);
 }
 
 @media (max-width:675px) {
 
     body{
         margin: 1rem 0.5rem;
+        background-size: 100% 100%;
     }
 
     main{

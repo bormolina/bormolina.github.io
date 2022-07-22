@@ -7,46 +7,52 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    />    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 
-    <title>Document</title>
+    <script src="scripts.js"></script>
+
+    <title>Borja Molina Zea</title>
 </head>
 <body>
     <main>
         <img src="assets/img/yo.jpg" alt="" id="photo" class="animate__animated animate__fadeInDown">
+        
         <header class="animate__animated animate__fadeInRight">
             <h1>Borja Molina Zea</h1>
         </header>
+        
         <section id="career" class="animate__animated animate__fadeInRight">
             <h2>Developer | Front-end web developer</h2>
         </section>
+        
         <section id="bio" class="animate__animated animate__fadeInRight">
             <div class="item-bio" id="about-me">
-                <span></span>
-                <i class="fa-solid fa-user-astronaut fa-5xl"></i>
-                <h3>About</h3>
+                    <span></span>
+                    <i class="fa-solid fa-user-astronaut fa-5xl"></i>
+                    <h3>About</h3>
             </div>
-            <div class="item-bio" id="skills">
-                <span></span>
-                <i class="fa-solid fa-cogs"></i>
-                <h3>Skills</h3>
-            </div>
-            <div class="item-bio" id="resume">
+            <a href="docs/borja_molina_zea_cv_v10-julio-2022 - redux.pdf" target="_blank" class="item-bio" id="resume">
                 <span></span>
                 <i class="fa-solid fa-file-pdf"></i>
                 <h3>Resume</h3>
-            </div>
-            <div class="item-bio" id="github">
+            </a>            
+            <a href="https://www.youtube.com/channel/UCla4q4A1XObwwtLWp9gpc3g" target="_blank" class="item-bio" id="youtube">
+                <span></span>
+                <i class="fa-brands fa-youtube"></i>
+                <h3>Youtube</h3>
+            </a>
+            <a href="javascript:xtfgct('Ym9yamEubXo4QGdtYWlsLmNvbQ==')" class="item-bio" id="contact">
                 <span></span>
                 <i class="fa-solid fa-envelope"></i>
                 <h3>Contact</h3>
-            </div>
+            </a>
         </section>
+        
         <section id="info" class="animate__animated animate__fadeInUp">
             <div id="info-text">
                 <p>Hi!, my name is <span class="important-text">Borja Molina Zea</span>, I'm from <span class="important-text">Granada-Spain</span> and I'm a <span class="important-text">developer</span><span class="emoji">💻</span>. I have a <span class="important-text">computer science degree</span><span class="emoji">🎓</span> by <span class="important-text">Universidad de Granada</span>.</p>
@@ -56,7 +62,33 @@
                     <li>Mobile apps developer (Android)</li>
                     <li>Automatizing tasks with Python</li>
                 </ul>
-                <p>I also have a <a href="https://www.youtube.com/channel/UCla4q4A1XObwwtLWp9gpc3g" class="important-text">Youtube channel 📹</a> where I teach to programming.</p>
+                <p id="skills-title">Skills:</p>
+                <div id="skills">
+                    <div class="skills-item">
+                        <i class="fa-brands fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="skills-item">
+                        <i class="fa-brands fa-js"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="skills-item">
+                        <i class="fa-brands fa-css3"></i>
+                        <span>CSS</span>
+                    </div>
+                    <div class="skills-item">
+                        <i class="fa-brands fa-java"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="skills-item">
+                        <i class="fa-brands fa-android"></i>
+                        <span>Kotlin</span>
+                    </div>
+                    <div class="skills-item">
+                        <i class="fa-brands fa-git"></i>
+                    </div>
+                </div>
+                <p>I also have a <a href="https://www.youtube.com/channel/UCla4q4A1XObwwtLWp9gpc3g" class="important-text">Youtube channel</a> where I teach to programming.</p>
             </div>
         </section>
 
@@ -70,7 +102,7 @@
             <a href="https://www.tiktok.com/@profesorinformatica">
                 <i class="fa-brands fa-tiktok"></i>
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/bortografo/">
                 <i class="fa-brands fa-instagram"></i>
             </a>
         </section>
