@@ -172,6 +172,7 @@ header{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    justify-items: center;
     font-size: var(--size-text-l);
 }
 
