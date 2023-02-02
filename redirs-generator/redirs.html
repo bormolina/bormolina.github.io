@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="redirs.css">
+    <script src="redirs.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Redirs generator</h1>
+    <h2>CSV input</h2>
+    <textarea name="" id="input" rows="20">escuela/organos_de_gobierno/index,/facultad/organizacion
+escuela/organos_de_gobierno/equipo-de-gobierno/index,/facultad/organizacion
+escuela/organos_de_gobierno/junta-de-centro/index,/facultad/organizacion
+escuela/organos_de_gobierno/mesa-de-la-junta-de-facultad/index,/facultad/organizacion
+escuela/organos_de_gobierno/comision-de-gobierno/index,/facultad/organizacion</textarea>
+    <label><input type="checkbox" id="check-pages" checked>Add ^pages/</label><br>
+    <label><input type="checkbox" id="check-common" checked>Add common pages</label><br>
+    <button onclick="generate_redirs()">GENERATE</button>
+    <h2>Apache output</h2>
+    <textarea name="" id="output" rows="20"></textarea>
+</body>
+</html>
