@@ -1,0 +1,14 @@
+#seccionAleatorio{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#ta{
+  display:flex;
+}
+
+#ta>textarea{
+  width: 50%;
+}

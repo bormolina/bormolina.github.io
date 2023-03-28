@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temario opos</title>
+  <link rel="stylesheet" href="opos.css">
+  <script src="temas.js" defer></script>
+  <script src="controller.js" defer></script>
+</head>
+<body>
+  <section>
+    <p>Llevas <t id="nTemas"></t> temas, la probabilidad de que te salga bola es <t id="proba"></t>%</p>
+  </section>
+  <section id="seccionAleatorio">
+    <select id="selectorTema" onchange="selectHandler(this)"></select>
+    <button onclick="temaAleatorio()">Otro tema!</button>
+  </section>
+  
+  <section id="ta">
+    <textarea onkeydown="friendlyTab(event)" name="" id="lta" rows="20"></textarea>
+    <textarea name="" id="rta" rows="20"></textarea>
+  </section>
+
+  <button onclick="verTema()">Ver tema</button>
+</body>
+</html>
