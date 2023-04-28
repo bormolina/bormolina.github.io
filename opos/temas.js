@@ -234,6 +234,28 @@ const temas = [
       '5. Conclusión',
       '6. Bibliografía'
     ]
+  },
+  {
+    'nombre': 'Tema 61: Redes y servicios de comunicaciones',
+    'indice' : [
+      '1. Introducción',
+      '2. Redes',
+        '2.1. Comunicación de la información',
+          '2.1.1. Elementos de la comunicación',
+        '2.2. Redes de sistemas informáticos',
+          '2.2.1. Tipos de redes',
+      '3. Servicios de comunciación*',
+        '3.1. Servicios para el usuario final',
+          '3.1.1. World Wide Web (WWW)',
+          '3.1.2. Correo electrónico',
+          '3.1.3. Transferencia de archivos',
+          '3.1.4. Control remoto',
+        '3.2. Servicios de red',
+          '3.2.1. Protocolo de configuración dinámica de dispositivos. DHCP',
+          '3.2.2. Sistema de dominio de nombres. DNS',
+          '3.2.3. Protocolo de gestión simple de red. SNMP',
+        '4. Conclusión'
+    ]
   }
 ]
 
