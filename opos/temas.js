@@ -210,6 +210,10 @@ const temas = [
         '3.4. Correspondencia entre niveles',
       '4. Lenguajes*',
         '4.1. SQL',
+          '4.1.1. Tipos de dato',
+          '4.1.2. Sentencia create table',
+          '4.1.3. Sentencia alter table',
+          '4.1.4. Sentencia drop table',
       '5. Diccionario de datos',
       '6. Conclusión',
       '7. Bibliografía'
