@@ -260,6 +260,26 @@ const temas = [
           '3.2.3. Protocolo de gestión simple de red. SNMP',
         '4. Conclusión'
     ]
+  },
+  {
+    'nombre': 'Tema 69: Integración de sistemas. Medios de interconexión. Estándares. Protocolos de acceso a redes de área extensa', 
+    'indice': [
+      '1. Introducción',
+      '2. Integración de sistemas',
+      '3. Medios de interconexión',
+        '3.1. Repetidor',
+        '3.2. Concentrador o hub',
+        '3.3. Puente de enlace o bridge',
+        '3.4. Conmutador o switch',
+        '3.5. Enrutador o router', 
+        '3.6. Pasarela o gateway',
+      '4. Estándares*',
+        '4.1. X.25',
+        '4.2. IP',
+      '5. Protocolos de acceso a redes de área extensa',
+      '6. Conclusión',
+      '7. Bibliografía'
+    ]
   }
 ]
 
