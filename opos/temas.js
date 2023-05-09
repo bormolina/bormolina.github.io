@@ -217,15 +217,59 @@ const temas = [
         '3.2. Nivel conceptual',
         '3.3. Nivel interno',
         '3.4. Correspondencia entre niveles',
-      '4. Lenguajes*',
-        '4.1. SQL',
-          '4.1.1. Tipos de dato',
-          '4.1.2. Sentencia create table',
-          '4.1.3. Sentencia alter table',
-          '4.1.4. Sentencia drop table',
+      '4. Lenguajes. SQL*',
+          '4.1. Tipos de datos en SQL',
+          '4.2. Creación de tablas',
+          '4.3. Modificación de tablas',
+          '4.4. Borrado de tablas',
+          '4.5. Creación de vistas',
+          '4.6. Creación de índices',
       '5. Diccionario de datos',
       '6. Conclusión',
       '7. Bibliografía'
+    ]
+  },
+  {
+    'nombre': 'Tema 36: La manipulación de datos. Operaciones. Lenguajes. Optimización de consultas. ', 
+    'indice': [
+      '1. Introducción', 
+      '2. Manipulación de datos',
+      '3. Operaciones',
+        '3.1. Álgebra relacional',
+        '3.2. Cálculo relacional',
+      '4. Lenguajes. SQL',
+        '4.1. Consulta de datos',
+        '4.2. Inserción de datos',
+        '4.3. Modificación de datos',
+        '4.4. Borrado de datos',
+      '5. Optimización de consultas',
+      '6. Conclusiones',
+      '7. Bibliografías'
+    ]
+  },
+  {
+    'nombre': 'Tema 39: Lenguajes para la definición y manipulación de datos en sistemas de bases de datos relacionales. Tipos. Características. El lenguaje SQL', 
+    'indice': [
+      '1. Introducción',
+      '2. Sistemas de bases de datos relacionales',
+      '3. Lenguajes de definición de datos. Tipos y características',
+      '4. Lenguajes de manipulación de datos. Tipos y características',
+      '5. El lenguaje SQL*',
+        '5.1. SLQ como DDL',
+          '5.1.1. Tipos de datos',
+          '5.1.2. Crear tablas',
+          '5.1.3. Crear restricciones',
+          '5.1.4. Modificar tablas',
+          '5.1.5. Borrar tablas',
+          '5.1.6. Crear vistas',
+          '5.1.7. Crear índices',
+        '5.2. SQL como DML', 
+          '5.2.1. Consultas',
+          '5.2.2. Inserción de datos',
+          '5.2.3. Modificación de datos',
+          '5.2.4. Borrado de datos',
+        '6. Conclusión',
+        '7. Bibliografía'
     ]
   },
   {
@@ -300,3 +344,13 @@ const template =
 
     ]
   }
+
+/*
+create table jugador(
+	id_jugador int AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT null,
+    posicion ENUM('Portero', 'Defensa', 'Centrocampista', 'Delantero') not null,
+    goles SMALLINT unsigned DEFAULT 0, 
+    id_equipo int FOREIGN KEY
+);
+*/
