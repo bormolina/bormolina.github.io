@@ -162,7 +162,7 @@ const temas = [
     'nombre': 'Tema 24: Lenguajes de programación. Tipos. Características',
     'indice':[
       '1. Introducción', 
-      '2. Lenguajes de programación',
+      '2. Lenguajes de programación*',
         '2.1. Elementos',
           '2.1.1. Símbolos',
           '2.1.2. Palabras reservadas',
@@ -173,7 +173,7 @@ const temas = [
           '2.1.7. Instrucciones',
           '2.1.8. Procedimientos',
           '2.1.9. Comentarios',
-        '2.2. Traductores',
+        '2.2. Traductores*',
           '2.2.1. Compilador', 
           '2.2.2. Intérprete',
       '3. Tipos de lenguajes de programación',
@@ -184,6 +184,30 @@ const temas = [
       '4. Características', 
       '5. Conclusión', 
       '6. Bibliografía'
+    ]
+  },
+  {
+    'nombre': 'Tema 25: Programación estructurada. Estructuras básicas. Funciones y procedimientos', 
+    'indice': [
+        '1. Introducción',
+        '2. Programación estructurada',
+        '3. Estructuras básicas',
+          '3.1. Secuenciales',
+          '3.2. Selectivas (condicionales)',
+            '3.1.1. Condicional simple (if)',
+            '3.1.2. Condicional doble (if-else)',
+            '3.1.3. Condicional múltiple (switch y if-else if-else)',
+          '3.3. Iterativas (bucles)',
+            '3.3.1. Bucles while',
+            '3.3.2. Bucles until',
+            '3.3.3. Bucles for',
+        '4. Funciones y procedimientos',
+          '4.1. Funciones',
+          '4.2. Procedimientos',
+          '4.3. Paso de parámetros por valor y por correspondencia',
+          '4.4. Ámbito de un identificador',
+        '5. Conclusión',
+        '6. Bibliografía'
     ]
   },
   {
