@@ -211,6 +211,29 @@ const temas = [
     ]
   },
   {
+    'nombre': 'Tema 26: Programación modular. Diseño de funciones. Recursivida y librerias', 
+    'indice': [
+        '1. Introducción',
+        '2. Programación modular*',
+          '2.1. Ventajas de la programación modular',
+          '2.2. Programas y subprogramas',
+        '3. Diseño de funciones*',
+          '3.1. Declaración de funciones',
+          '3.2. Definición de funciones',
+          '3.3. Llamada de funciones',
+          '3.4. Correspondencia entre parámetros formales y actuales. Paso por valor y por referencia',
+        '4. Recursividad*',
+          '4.1. Ventajas de la recursividad',
+          '4.2. Tipos de recursividad',
+        '5. Librerías',
+          '5.1. Estructura de una librería',
+          '5.2. Tipos de librerías',
+          '5.3. Ventajas de usar librerías',
+        '6. Conclusión',
+        '7. Bibliografía'
+    ]
+  },
+  {
     'nombre': 'Tema 27: Programación orientada a objetos. Objetos. Clases. Herencia. Polimorfismo. Lenguajes.',
     'indice':[
       '1. Introducción',
@@ -368,13 +391,3 @@ const template =
 
     ]
   }
-
-/*
-create table jugador(
-	id_jugador int AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT null,
-    posicion ENUM('Portero', 'Defensa', 'Centrocampista', 'Delantero') not null,
-    goles SMALLINT unsigned DEFAULT 0, 
-    id_equipo int FOREIGN KEY
-);
-*/
