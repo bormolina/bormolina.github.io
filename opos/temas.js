@@ -159,6 +159,23 @@ const temas = [
     ]
   },
   {
+    'nombre': 'Tema 23: Diseño de algoritmos. Técnicas descriptivas', 
+    'indice': [
+        '1. Introducción',
+        '2. Diseño de algoritmos',
+          '2.1. Definición de algoritmo',
+          '2.2. Estructura de un algoritmo',
+          '2.3. Eficiencia de un algoritmo',
+          '2.4. Técnicas de diseño',
+        '3. Técnicas descriptivas',
+          '3.1. Pseudocódigo',
+          '3.2. Diagramas de flujo',
+          '3.3. Diagramas N-S',
+        '4. Implementación de un algoritmo',
+        '5. Conclusiones'
+    ]
+  },
+  {
     'nombre': 'Tema 24: Lenguajes de programación. Tipos. Características',
     'indice':[
       '1. Introducción', 
@@ -177,7 +194,7 @@ const temas = [
           '2.2.1. Compilador', 
           '2.2.2. Intérprete',
       '3. Tipos de lenguajes de programación',
-        '3.1. Según su cercania al lenguaje máquina. Lenguajes de bajo y alto nivel',
+        '3.1. Según su cercanía al lenguaje máquina. Lenguajes de bajo y alto nivel',
         '3.2. Según su propósito',
         '3.3. Según su paradigma',
         '3.4. Según su generación',
@@ -252,6 +269,28 @@ const temas = [
       '8. Lenguajes',
       '9. Conclusión',
       '10. Bibliografía'
+    ]
+  },
+  {
+    'nombre': 'Tema 29: Utilidades para el desarrollo y prueba de programas. Compiladores. Intérpretes. Depuradores.', 
+    'indice': [
+        '1. Introducción',
+        '2. Utilidades para el desarrollo y prueba de programas',
+        '3. Traductores',
+          '3.1. Etapa de análisis',
+          '3.2. Etapa de síntesis',
+        '4. Compiladores*',
+          '4.1. El preprocesador',
+          '4.2. Caso práctico de uso de compilador. El compilador GCC de C',
+        '5. Intérpretes*',
+          '5.1. Caso práctico de uso de intérprete. El intérprete de Python',
+        '6. Comparativa entre compiladores e intérpretes. Ventajas e incovenientes',
+        '7. Enfoque híbrido. El caso de Java.',
+        '8. Depuradores*',
+          '8.1. Funciones de un depurador',
+          '8.2. Caso práctico. Uso del depurador GBD',
+        '9. Conclusión',
+        '10. Bibliografía'
     ]
   },
   {
@@ -358,7 +397,8 @@ const temas = [
           '3.2.1. Protocolo de configuración dinámica de dispositivos. DHCP',
           '3.2.2. Sistema de dominio de nombres. DNS',
           '3.2.3. Protocolo de gestión simple de red. SNMP',
-        '4. Conclusión'
+        '4. Conclusión', 
+        '5. Bibliografía'
     ]
   },
   {
