@@ -159,6 +159,29 @@ const temas = [
     ]
   },
   {
+    'nombre': 'Tema 16: Sistemas operativos: gestión de procesos', 
+    'indice': [
+      '1. Introducción',
+      '2. Procesos*',
+        '2.1. Estados de un proceso',
+        '2.2. Estructura de un proceso',
+      '3. Gestión de procesos',
+        '3.1. Planificación de procesos',
+          '3.1.1. Algoritmo FIFO',
+          '3.1.2. Algoritmo SPN', 
+          '3.1.3. Algoritmo SRT',
+          '3.1.4. Algoritmo de turno rotatorio o Round Robin',
+          '3.1.5. Algortimos multinivel',
+        '3.2. Sincronización entre procesos*',
+          '3.2.1. Exclusión mútua',
+          '3.2.2. Interbloqueo',
+          '3.2.3. Mecanismo para la sincronización',
+          '3.2.4. Paso de mensajes entre procesos',
+        '4. Conclusión',
+        '5. Bibliografía'
+    ]
+  },
+  {
     'nombre': 'Tema 23: Diseño de algoritmos. Técnicas descriptivas', 
     'indice': [
         '1. Introducción',
