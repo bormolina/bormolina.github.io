@@ -295,6 +295,24 @@ const temas = [
     ]
   },
   {
+    'nombre': 'Tema 28: Programación en tiempo real. Interrupciones. Sincronización y comunicación entre tareas. Lenguajes', 
+    'indice': [
+      '1. Introducción',
+      '2. Programación en tiempo real',
+        '2.1. Tipos de sistemas en tiempo real',
+      '3. Interrupciones',
+        '3.1. Gestión de interrupciones',
+      '4. Sincronización entre tareas',
+        '4.1. Cerrojos',
+        '4.2. Semáforos',
+        '4.3. Monitores',
+      '5. Comunicación entre tareas',
+      '6. Lenguajes de programación',
+      '7. Conclusión',
+      '8. Bibliografía'
+    ]
+  },
+  {
     'nombre': 'Tema 29: Utilidades para el desarrollo y prueba de programas. Compiladores. Intérpretes. Depuradores.', 
     'indice': [
         '1. Introducción',
@@ -417,6 +435,22 @@ const temas = [
       '5. Documentación',
       '6. Conclusión',
       '7. Bibliografía'
+    ]
+  },
+  {
+    'nombre': 'Tema 53: Diseño lógico de datos. Transformación del modelo conceptual a modelos lógicos. Análisis relacional de datos. Documentación', 
+    'indice': [
+        '1. Introducción', 
+        '2. Diseño lógico de datos',
+        '3. Transformación del modelo conceptual a modelos lógicos*',
+          '3.1. Del diagrama entidad/relación al modelo relacional',
+          '3.2. Proceso de normalización',
+        '4. Análisis relacional de datos*',
+          '4.1. Álgebra relacional',
+          '4.2. Cálculo relacional',
+        '5. Documentación',
+        '6. Conclusión',
+        '7. Bibliografía'
     ]
   },
   {
