@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz de lenguajes infinito</title>
+  <style>
+    body{
+      margin:0; font-family: system-ui, sans-serif;
+      background:#0f172a; color:#e5e7eb;
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .app{
+      width:min(800px, 100%);
+      background:#111827; border:1px solid #1f2937;
+      border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.5);
+      padding:22px; display:grid; gap:16px;
+    }
+    pre{
+      margin:0; padding:18px; background:#060914; color:#e5e7eb;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size:14px; line-height:1.55; white-space:pre-wrap;
+    }
+    .answers{display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(200px,1fr))}
+    .btn{
+      padding:12px 14px; border:1px solid #1f2937; border-radius:10px;
+      background:#0c1426; color:#e5e7eb; cursor:pointer;
+      transition:.2s;
+    }
+    .btn:hover{border-color:#334155; background:#0e1a33}
+    .btn.correct{border-color:#15803d; background:#062412}
+    .btn.incorrect{border-color:#7f1d1d; background:#240606}
+    .controls{display:flex; justify-content:flex-end; gap:10px}
+    .pill{
+      padding:10px 14px; border-radius:8px; border:1px solid #1f2937;
+      background:#0b1220; color:#e5e7eb; cursor:pointer;
+    }
+    .pill.primary{background:linear-gradient(90deg,#0ea5e9,#22c55e); border:0; color:#031017; font-weight:600}
+    .result{padding:12px 14px; border:1px solid #1f2937; border-radius:10px; background:#0b1220}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h2>¿Qué lenguaje es este?</h2>
+    <pre id="snippet"></pre>
+    <div class="answers" id="answers"></div>
+    <div id="feedback" class="result" style="display:none"></div>
+    <div class="controls">
+      <button id="next" class="pill primary">Siguiente</button>
+    </div>
+  </div>
+
+  <script>
+    const banco = [
+      {lenguaje:"HTML", codigo:`<section>\n  <h1>Título</h1>\n  <p>Texto de ejemplo</p>\n</section>`},
+      {lenguaje:"CSS", codigo:`h1 {\n  color: navy;\n  font-size: 2rem;\n}`},
+      {lenguaje:"JavaScript", codigo:`const edad = 20;\nif (edad >= 18) {\n  console.log("Mayor de edad");\n}`},
+      {lenguaje:"YAML", codigo:`nombre: Lucía\nedad: 22\nasignaturas:\n  - Matemáticas\n  - Historia`},
+      {lenguaje:"JSON", codigo:`{\n  "nombre": "Lucía",\n  "edad": 22,\n  "asignaturas": ["Mate","Historia"]\n}`},
+      {lenguaje:"XML", codigo:`<alumno>\n  <nombre>Lucía</nombre>\n  <edad>22</edad>\n</alumno>`},
+      {lenguaje:"Markdown", codigo:`# Encabezado\nTexto con **negrita** y *cursiva*.\n- Punto 1\n- Punto 2`},
+      {lenguaje:"Código no válido", codigo:`@@ esto no es nada válido ## $$`},
+      {lenguaje:"HTML", codigo:`<figure>\n  <img src="foto.jpg" alt="foto">\n  <figcaption>Pie de foto</figcaption>\n</figure>`},
+      {lenguaje:"CSS", codigo:`.boton {\n  display: flex;\n  gap: 8px;\n  align-items: center;\n}`},
+      {lenguaje:"Código no válido", codigo:`h2 {\n  color: blue font-size: 18px\n}`} , 
+      {lenguaje:"JavaScript", codigo:`const doble = n => n * 2;\nconsole.log(doble(5));`},
+      {lenguaje:"Código no válido", codigo:`function saludo( {\n  return "hola";\n}`} , 
+      {lenguaje:"YAML", codigo:`config:\n  host: localhost\n  puerto: 3000\n  debug: true`},
+      {lenguaje:"Código no válido", codigo:`nombre: "María" edad: 28`},
+      {lenguaje:"JSON", codigo:`{\n  "idioma": "es",\n  "nivel": "básico",\n  "activo": true\n}`},
+      {lenguaje:"Código no válido", codigo:`{idioma: 'es', nivel: basico}`},
+      {lenguaje:"XML", codigo:`<nota>\n  <para>Recuerdo</para>\n  <fecha>2025-09-19</fecha>\n</nota>`},
+      {lenguaje:"Código no válido", codigo:`<lista>\n  <item>uno</item>\n  <item>dos</lista>`},
+      {lenguaje:"Markdown", codigo:`### Apuntes\n\nEsto es **importante** y *conciso*.`},
+      {lenguaje:"Código no válido", codigo:`Este es *mal **anidado* ejemplo`},
+      {lenguaje:"HTML", codigo:`<ul>\n  <li>Pan</li>\n  <li>Leche</li>\n  <li>Huevos</li>\n</ul>`},
+      {lenguaje:"Código no válido", codigo:`<div>\n  <span>Texto</div>\n</span>`},  // etiquetas mal cerradas
+      {lenguaje:"CSS", codigo:`p {\n  font-weight: bold;\n  text-align: center;\n}`},
+      {lenguaje:"Código no válido", codigo:`#caja {\n  color red;\n}`} ,  // falta el :
+      {lenguaje:"JavaScript", codigo:`let x = 10;\nwhile (x > 0) {\n  console.log(x);\n  x--;\n}`},
+      {lenguaje:"Código no válido", codigo:`const = 5;\nconsole.log(const);`} ,  // "const" no puede usarse como nombre
+      {lenguaje:"YAML", codigo:`animales:\n  - perro\n  - gato\n  - ratón`},
+      {lenguaje:"Código no válido", codigo:`- fruta: manzana\n- fruta: pera\n  fruta: plátano`} ,  // indentación inconsistente
+      {lenguaje:"JSON", codigo:`{\n  "titulo": "Libro",\n  "paginas": 200,\n  "disponible": false\n}`},
+      {lenguaje:"Código no válido", codigo:`{\n  "titulo": "Libro",\n  "paginas": 200,\n}`},  // coma final extra, inválido en JSON puro
+      {lenguaje:"XML", codigo:`<curso>\n  <nombre>Lenguajes de Marcas</nombre>\n  <horas>180</horas>\n</curso>`},
+      {lenguaje:"Código no válido", codigo:`<curso>\n  <nombre>Lenguajes de Marcas</nombre>\n  <horas>180</curso>`},  // etiqueta <horas> sin cierre
+      {lenguaje:"Markdown", codigo:`# Título principal\n\nTexto con [enlace](https://ejemplo.com)`},
+      {lenguaje:"Código no válido", codigo:`##Subtítulo\nTexto__mal cerrado*`},  // mala sintaxis de encabezado y énfasis
+      {lenguaje:"HTML", codigo:`<nav>\n  <a href="/">Inicio</a>\n  <a href="/contacto">Contacto</a>\n</nav>`},
+      {lenguaje:"Código no válido", codigo:`<p>Un párrafo\n<span>mal cerrado</p></span>`},  // orden de cierre incorrecto
+      {lenguaje:"CSS", codigo:`.menu {\n  list-style: none;\n  padding: 0;\n}`},
+      {lenguaje:"Código no válido", codigo:`h1 {\n  font-size: 2em\n  color: green;\n}`} ,  // falta ; tras font-size
+      {lenguaje:"JavaScript", codigo:`const saludo = () => {\n  console.log("Hola mundo");\n};`},
+      {lenguaje:"Código no válido", codigo:`if (x == 10) {\n  console.log("diez");\n}`},  // x no está declarado
+      {lenguaje:"YAML", codigo:`usuario:\n  nombre: Marta\n  rol: admin`},
+      {lenguaje:"Código no válido", codigo:`usuario:\n  - nombre: Marta\n  - rol: admin`} ,  // mezcla lista/mapa mal formada
+      {lenguaje:"JSON", codigo:`{\n  "alumno": "Lucía",\n  "nota": 9.5\n}`},
+      {lenguaje:"Código no válido", codigo:`{\n  "alumno": "Lucía"\n  "nota": 9.5\n}`} ,  // falta coma entre pares
+      {lenguaje:"XML", codigo:`<pais>\n  <nombre>España</nombre>\n  <codigo>ES</codigo>\n</pais>`},
+      {lenguaje:"Código no válido", codigo:`<pais>\n  <nombre>España</nombre>\n  <codigo>ES</pais>`},  // falta cierre de <codigo>
+      {lenguaje:"Markdown", codigo:`## Lista\n- Item 1\n- Item 2`},
+      {lenguaje:"Código no válido", codigo:`#Titulo\nTexto con **negrita*`},  // encabezado mal escrito y negrita mal cerrada
+      {lenguaje:"HTML", codigo:`<section>\n  <h2>Contacto</h2>\n  <form>\n    <label for="email">Email</label>\n    <input id="email" type="email">\n  </form>\n</section>`},
+      {lenguaje:"Código no válido", codigo:`<div><em><strong>Texto</em></strong></div>`},  // anidación incorrecta de etiquetas
+      {lenguaje:"CSS", codigo:`@media (min-width: 600px) {\n  .grid {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n  }\n}`},
+      {lenguaje:"Código no válido", codigo:`.alert {\n  color: #12345;\n}`},  // color hex con 5 dígitos (inválido)
+      {lenguaje:"JavaScript", codigo:`const persona = { nombre: "Ana", edad: 28 };\nconst { nombre, edad } = persona;\nconsole.log(nombre, edad);`},
+      {lenguaje:"Código no válido", codigo:`let 1item = 3;\nconsole.log(1item);`},  // identificador no válido
+      {lenguaje:"YAML", codigo:`mensaje: >\n  Esto es una línea\n  que se pliega en una sola.\nopciones:\n  activo: true\n  reintentos: 3`},
+      {lenguaje:"Código no válido", codigo:`opciones:\n\tactivo: true\n\treintentos: 3`},  // YAML no permite tabuladores para indentar
+      {lenguaje:"JSON", codigo:`{\n  "tareas": [\n    {"id": 1, "hecha": false},\n    {"id": 2, "hecha": true}\n  ]\n}`},
+      {lenguaje:"Código no válido", codigo:`{\n  // comentario no permitido en JSON\n  "activo": true,\n}`},  // comentarios y coma final -> JSON inválido
+      {lenguaje:"XML", codigo:`<inventario>\n  <producto>\n    <nombre>Teclado</nombre>\n    <precio>29.99</precio>\n  </producto>\n</inventario>`},
+      {lenguaje:"Código no válido", codigo:`<producto nombre=Teclado></producto>`},  // en XML los atributos deben ir entre comillas
+      {lenguaje:"Markdown", codigo:`## Notas\n\n- Punto **importante**\n- Código:\n\`\`\`\nconsole.log("hola");\n\`\`\``},
+      {lenguaje:"Código no válido", codigo:`Texto con \`código sin cerrar\ny más texto`}  // backtick abierto sin cerrar
+    ];
+
+    const NOMBRES = ["HTML","CSS","JavaScript","YAML","JSON","XML","Markdown","Código no válido"];
+    const $ = sel => document.querySelector(sel);
+
+    const snippet = $("#snippet");
+    const answers = $("#answers");
+    const feedback = $("#feedback");
+    const nextBtn = $("#next");
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    function nuevaPregunta(){
+      feedback.style.display="none";
+      answers.innerHTML="";
+      const q = banco[Math.floor(Math.random()*banco.length)];
+      snippet.textContent = q.codigo;
+
+      NOMBRES.forEach(opt=>{
+        const b=document.createElement("button");
+        b.className="btn"; b.textContent=opt;
+        b.onclick=()=>{
+          if(opt===q.lenguaje){
+            b.classList.add("correct");
+            feedback.textContent=`✔ Correcto: era ${q.lenguaje}`;
+          } else {
+            b.classList.add("incorrect");
+            feedback.textContent=`✘ Incorrecto. Era ${q.lenguaje}`;
+          }
+          feedback.style.display="block";
+          Array.from(answers.children).forEach(x=>x.disabled=true);
+        };
+        answers.appendChild(b);
+      });
+    }
+
+    nextBtn.onclick=()=>nuevaPregunta();
+    nuevaPregunta();
+  </script>
+</body>
+</html>
