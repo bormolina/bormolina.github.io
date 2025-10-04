@@ -1,0 +1,74 @@
+#ring_ring{
+    display: none;
+}
+
+/* Fondo Hello Kitty */
+body {
+    background-color: #ffeef8;
+    color: #ff66a3;
+    font-family: "Comic Sans MS", "Arial Rounded MT Bold", cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor principal */
+main {
+    text-align: center;
+    background-color: #fff;
+    border: 3px solid #ff99cc;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px #ffb6d9;
+}
+
+/* Botones estilo kawaii */
+button {
+    background-color: #ffb6d9;
+    border: 2px solid #ff66a3;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #ff66a3;
+    transform: scale(1.1);
+}
+
+/* Contador con estilo dulce */
+#contador {
+    display: inline-block;
+    font-size: 3rem;
+    margin: 0 20px;
+    color: #ff3399;
+    text-shadow: 1px 1px 2px #ffccff;
+}
+
+/* Texto RING RING con corazones parpadeantes */
+#ring_ring {
+    margin-top: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff3399;
+    text-shadow: 0 0 10px #ffcce6;
+    animation: corazon 1s infinite;
+}
+
+/* Animación de corazones */
+@keyframes corazon {
+    0%, 100% {
+        transform: scale(1);
+        color: #ff66a3;
+    }
+    50% {
+        transform: scale(1.2);
+        color: #ff3399;
+    }
+}

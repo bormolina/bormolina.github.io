@@ -1,0 +1,64 @@
+#ring_ring{
+    display: none;
+}
+
+/* Fondo estilo Matrix */
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor principal centrado */
+main {
+    text-align: center;
+}
+
+/* Botones estilo terminal */
+button {
+    background-color: transparent;
+    border: 2px solid #0f0;
+    color: #0f0;
+    font-size: 2rem;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #0f0;
+    color: #000;
+}
+
+/* Contador estilo pantalla digital */
+#contador {
+    display: inline-block;
+    font-size: 3rem;
+    margin: 0 20px;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+}
+
+/* Texto RING RING estilo parpadeo Matrix */
+#ring_ring {
+    margin-top: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    animation: parpadeo 1s infinite;
+}
+
+/* Animación de parpadeo */
+@keyframes parpadeo {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0;
+    }
+}
