@@ -10,5 +10,7 @@ async function obtenerDatos() {
     }
 }
 
-datos_meteorologicos = obtenerDatos();
-console.log(datos_meteorologicos)
+obtenerDatos().then(resultado => {
+    const datos = resultado;
+    console.log(datos);
+});
