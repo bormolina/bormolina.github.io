@@ -10,7 +10,22 @@ async function obtenerDatos() {
     }
 }
 
+function calcularMedias(datos) {
+    const temps = datos.hourly.temperature_2m;
+    const lluvias = datos.hourly.precipitation_probability;
+
+    const mediaTemp = temps.reduce((a, b) => a + b, 0) / temps.length;
+    const mediaLluvia = lluvias.reduce((a, b) => a + b, 0) / lluvias.length;
+
+    return {
+        temperaturaMedia: mediaTemp.toFixed(1),
+        probabilidadMediaLluvia: mediaLluvia.toFixed(1)
+    };
+}
+
 obtenerDatos().then(resultado => {
     const datos = resultado;
-    console.log(datos);
+    const medias = calcularMedias(datos);
+    console.log(`Temperatura media: ${medias.temperaturaMedia} °C`);
+    console.log(`Probabilidad media de lluvia: ${medias.probabilidadMediaLluvia} %`);
 });
