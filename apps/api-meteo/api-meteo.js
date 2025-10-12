@@ -71,21 +71,21 @@ function mostrarDatos(localidad, medias){
     document.querySelector("#emojiDia").innerHTML = emojiDia;
 }
 
+
+//Nueva función que centraliza todo el flujo
+function actualizarDatos(localidad) {
+  obtenerDatos(localidad).then((resultado) => {
+    if (!resultado) return;
+    const medias = calcularMedias(resultado);
+    mostrarDatos(localidad, medias);
+  });
+}
+
 //Cargamos los datos por primera vez
 const selector = document.querySelector("#seleccionarLocalidad");
-const localidad = selector.value;
-obtenerDatos(localidad).then(resultado => {
-    const datos = resultado;
-    const medias = calcularMedias(datos);
-    mostrarDatos(localidad, medias);
-});
+actualizarDatos(selector.value);
 
 //Cuando el select cambie actualizamos la web
 selector.addEventListener("change", (event) => {
-    const localidad = event.target.value;
-    obtenerDatos(localidad).then(resultado => {
-        const datos = resultado;
-        const medias = calcularMedias(datos);
-        mostrarDatos(localidad, medias);
-    })
+    actualizarDatos(event.target.value);
 });
