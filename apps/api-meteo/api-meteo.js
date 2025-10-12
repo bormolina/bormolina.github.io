@@ -71,9 +71,21 @@ function mostrarDatos(localidad, medias){
     document.querySelector("#emojiDia").innerHTML = emojiDia;
 }
 
-const localidad = document.querySelector("#seleccionarLocalidad").value;
+//Cargamos los datos por primera vez
+const selector = document.querySelector("#seleccionarLocalidad");
+const localidad = selector.value;
 obtenerDatos(localidad).then(resultado => {
     const datos = resultado;
     const medias = calcularMedias(datos);
     mostrarDatos(localidad, medias);
+});
+
+//Cuando el select cambie actualizamos la web
+selector.addEventListener("change", (event) => {
+    const localidad = event.target.value;
+    obtenerDatos(localidad).then(resultado => {
+        const datos = resultado;
+        const medias = calcularMedias(datos);
+        mostrarDatos(localidad, medias);
+    })
 });
