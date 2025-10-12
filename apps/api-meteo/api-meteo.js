@@ -1,6 +1,28 @@
-async function obtenerDatos() {
+function generarURL(localidad) {
+    const localidades = [
+        { nombre: "Almería", latitud: 36.834, longitud: -2.4637 },
+        { nombre: "Granada", latitud: 37.1773, longitud: -3.5986 },
+        { nombre: "Málaga", latitud: 36.7213, longitud: -4.4214 },
+        { nombre: "Motril", latitud: 36.7507, longitud: -3.5179 }
+    ];
+   
+    const localidadDatos = localidades.find(
+        (loc) => loc.nombre.toLowerCase() === localidad.toLowerCase()
+    );
+
+    if (!localidadDatos) {
+        throw new Error(`No se encontró la localidad: ${localidad}`);
+    }
+
+    const { latitud, longitud } = localidadDatos;
+
+    return `https://api.open-meteo.com/v1/forecast?latitude=${latitud}&longitude=${longitud}&hourly=temperature_2m,precipitation_probability&timezone=auto`;
+}
+
+
+async function obtenerDatos(localidad) {
     try {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=36.7507&longitude=-3.5179&hourly=temperature_2m,precipitation_probability&timezone=auto";
+        const url = generarURL(localidad);
         const respuesta = await fetch(url);
         if (!respuesta.ok) throw new Error("Error al obtener los datos");
         const datos = await respuesta.json();   
@@ -42,14 +64,16 @@ function obtenerEmoji(probabilidad){
     }
 }
 
-function mostrarDatos(medias){
+function mostrarDatos(localidad, medias){
+    document.querySelector("#localidad").innerHTML = localidad;
     document.querySelector("#temperatura").innerHTML = medias.temperaturaMedia;
     const emojiDia = obtenerEmoji(medias.probabilidadMediaLluvia);
     document.querySelector("#emojiDia").innerHTML = emojiDia;
 }
 
-obtenerDatos().then(resultado => {
+const localidad = "Almería";
+obtenerDatos(localidad).then(resultado => {
     const datos = resultado;
     const medias = calcularMedias(datos);
-    mostrarDatos(medias);
+    mostrarDatos(localidad, medias);
 });
