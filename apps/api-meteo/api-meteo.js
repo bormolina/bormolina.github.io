@@ -71,7 +71,7 @@ function mostrarDatos(localidad, medias){
     document.querySelector("#emojiDia").innerHTML = emojiDia;
 }
 
-const localidad = "Almería";
+const localidad = document.querySelector("#seleccionarLocalidad").value;
 obtenerDatos(localidad).then(resultado => {
     const datos = resultado;
     const medias = calcularMedias(datos);
