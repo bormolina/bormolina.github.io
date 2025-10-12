@@ -18,14 +18,38 @@ function calcularMedias(datos) {
     const mediaLluvia = lluvias.reduce((a, b) => a + b, 0) / lluvias.length;
 
     return {
-        temperaturaMedia: mediaTemp.toFixed(1),
-        probabilidadMediaLluvia: mediaLluvia.toFixed(1)
+        temperaturaMedia: mediaTemp.toFixed(0),
+        probabilidadMediaLluvia: mediaLluvia.toFixed(0)
     };
+}
+
+function obtenerEmoji(probabilidad){
+    const emojis = ["🌞", "⛅", "🌦️", "🌧️", "⛈️"];
+    if(probabilidad === 0){
+        return emojis[0];
+    }
+    else if(probabilidad > 0 && probabilidad <= 30){
+        return emojis[1];
+    }
+    else if(probabilidad > 30 && probabilidad <=60){
+        return emojis[2];
+    }
+    else if(probabilidad>60 && probabilidad <= 80){
+        return emojis[3];
+    }
+    else{
+        return emojis[4];
+    }
+}
+
+function mostrarDatos(medias){
+    document.querySelector("#temperatura").innerHTML = medias.temperaturaMedia;
+    const emojiDia = obtenerEmoji(medias.probabilidadMediaLluvia);
+    document.querySelector("#emojiDia").innerHTML = emojiDia;
 }
 
 obtenerDatos().then(resultado => {
     const datos = resultado;
     const medias = calcularMedias(datos);
-    console.log(`Temperatura media: ${medias.temperaturaMedia} °C`);
-    console.log(`Probabilidad media de lluvia: ${medias.probabilidadMediaLluvia} %`);
+    mostrarDatos(medias);
 });
