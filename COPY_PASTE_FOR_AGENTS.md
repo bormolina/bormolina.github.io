@@ -6,9 +6,9 @@ Read the authoring guide before writing the HTML:
 https://raw.githubusercontent.com/bormolina/borLectures/main/AUTHORING_FOR_AGENTS.md
 
 Use these shared viewer files in the notes HTML:
-https://bormolina.github.io/borLectures/theme-clear.css
-https://bormolina.github.io/borLectures/styles.css
-https://bormolina.github.io/borLectures/app.js
+https://cdn.jsdelivr.net/gh/bormolina/borLectures@main/theme-clear.css
+https://cdn.jsdelivr.net/gh/bormolina/borLectures@main/styles.css
+https://cdn.jsdelivr.net/gh/bormolina/borLectures@main/app.js
 
 Create only:
 
