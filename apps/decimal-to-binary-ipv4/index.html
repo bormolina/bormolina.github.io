@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive exercise for converting IPv4 decimal values to 8-bit binary."
+    />
+    <title>Decimal to Binary for IPv4 — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../" aria-label="Back to all resources">← Resources</a>
+      <button class="next-button" id="next-button" type="button" hidden>
+        Next <span aria-hidden="true">→</span>
+      </button>
+    </header>
+
+    <main>
+      <p class="lesson-label">IPv4 · Decimal to binary</p>
+      <h1>Convert this number to 8-bit binary</h1>
+
+      <section class="exercise" aria-label="Decimal to binary exercise">
+        <div class="decimal-number" id="decimal-number" aria-label="Decimal number"></div>
+
+        <div class="bit-table" aria-label="Eight-bit place values and solution">
+          <div class="weights" id="weights"></div>
+          <div class="solution-bits" id="solution-bits" aria-hidden="true"></div>
+        </div>
+
+        <form id="answer-form" novalidate>
+          <label for="answer">Your 8-bit answer</label>
+          <div class="answer-row">
+            <input
+              id="answer"
+              name="answer"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              spellcheck="false"
+              maxlength="9"
+              placeholder="e.g. 10010110"
+              aria-describedby="answer-help"
+              required
+            />
+            <button type="submit">Check answer</button>
+          </div>
+          <p class="answer-help" id="answer-help">Use exactly eight 0s and 1s.</p>
+        </form>
+
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="method" aria-labelledby="method-title">
+        <h2 id="method-title">How it works</h2>
+        <ol>
+          <li>Write the values of the eight bits: 128, 64, 32, 16, 8, 4, 2 and 1.</li>
+          <li>Find the values you need to add to make the decimal number.</li>
+          <li>Write 1 for the values you use and 0 for those you do not use.</li>
+        </ol>
+      </section>
+    </main>
+  </body>
+</html>

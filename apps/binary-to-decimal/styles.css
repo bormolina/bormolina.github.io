@@ -19,16 +19,16 @@ input { font: inherit; }
 
 .app-header {
   display: flex;
-  min-height: 74px;
+  min-height: 64px;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 28px;
+  padding: 11px 28px;
   border-bottom: 1px solid var(--line);
 }
 
 .back-link {
   color: #333;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   text-decoration: none;
 }
 
@@ -42,7 +42,7 @@ input { font: inherit; }
 
 .icon-button,
 .next-button {
-  min-height: 40px;
+  min-height: 42px;
   border: 1px solid var(--line);
   color: #222;
   background: transparent;
@@ -51,7 +51,7 @@ input { font: inherit; }
 
 .icon-button {
   display: grid;
-  width: 40px;
+  width: 42px;
   padding: 0;
   place-items: center;
   border-radius: 50%;
@@ -67,7 +67,7 @@ input { font: inherit; }
 }
 
 .next-button {
-  padding: 0 15px;
+  padding: 0 17px;
   border-color: #222;
   border-radius: 4px;
   font-weight: 600;
@@ -79,21 +79,21 @@ input { font: inherit; }
 main {
   width: min(940px, calc(100% - 40px));
   margin: 0 auto;
-  padding: clamp(56px, 9vw, 96px) 0 80px;
+  padding: clamp(38px, 6vw, 58px) 0 52px;
 }
 
 .lesson-label {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 h1 {
-  margin: 0 0 clamp(52px, 9vw, 88px);
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin: 0 0 clamp(34px, 5vw, 48px);
+  font-size: clamp(2rem, 4vw, 3.1rem);
   font-weight: 600;
   letter-spacing: -0.035em;
 }
@@ -103,30 +103,30 @@ h1 {
 .bits {
   display: flex;
   justify-content: center;
-  gap: clamp(8px, 1.7vw, 18px);
+  gap: clamp(6px, 1.3vw, 14px);
   overflow-x: auto;
   padding: 4px 2px 10px;
 }
 
 .bit-column {
   display: grid;
-  min-width: clamp(46px, 7vw, 68px);
+  min-width: clamp(40px, 6vw, 58px);
   justify-items: center;
-  gap: 10px;
+  gap: 7px;
 }
 
 .bit {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(2.6rem, 7vw, 4.75rem);
+  font-size: clamp(2.25rem, 5.8vw, 3.9rem);
   font-weight: 700;
   line-height: 1;
 }
 
 .place-value {
-  min-height: 30px;
+  min-height: 31px;
   color: var(--blue);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(1.1rem, 2.7vw, 1.55rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
   font-weight: 700;
 }
 
@@ -136,15 +136,15 @@ h1 {
 }
 
 .sum {
-  min-height: 34px;
-  margin: 18px 0 46px;
+  min-height: 32px;
+  margin: 12px 0 28px;
   color: var(--muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-size: clamp(1.1rem, 2.6vw, 1.48rem);
 }
 
 #answer-form {
-  width: min(430px, 100%);
+  width: min(470px, 100%);
   margin: 0 auto;
   text-align: left;
 }
@@ -152,7 +152,7 @@ h1 {
 #answer-form label {
   display: block;
   margin-bottom: 8px;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
@@ -161,12 +161,12 @@ h1 {
 .answer-row input {
   width: 100%;
   min-width: 0;
-  padding: 13px 14px;
+  padding: 14px 15px;
   border: 1px solid #aaa;
   border-radius: 4px 0 0 4px;
   color: #111;
   background: #fff;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
 }
 
 .answer-row button,
@@ -180,7 +180,7 @@ h1 {
 
 .answer-row button {
   flex: 0 0 auto;
-  padding: 0 18px;
+  padding: 0 21px;
   border-radius: 0 4px 4px 0;
 }
 
@@ -194,9 +194,10 @@ h1 {
 }
 
 .feedback {
-  min-height: 66px;
-  width: min(430px, 100%);
-  margin: 18px auto 0;
+  min-height: 58px;
+  width: min(470px, 100%);
+  margin: 14px auto 0;
+  font-size: 1.05rem;
   text-align: left;
 }
 
@@ -291,9 +292,9 @@ dialog form > p {
 [hidden] { display: none !important; }
 
 @media (max-width: 560px) {
-  .app-header { padding: 14px 18px; }
+  .app-header { padding: 10px 18px; }
   main { width: min(100% - 28px, 940px); }
-  h1 { margin-bottom: 48px; }
+  h1 { margin-bottom: 34px; }
   .bits { justify-content: flex-start; }
   .answer-row { flex-direction: column; gap: 10px; }
   .answer-row input,
