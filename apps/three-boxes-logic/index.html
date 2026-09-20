@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Ten progressively harder three-box logic puzzles with immediate feedback."
+    />
+    <title>Three Boxes — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../" aria-label="Back to all resources">← Resources</a>
+      <div class="header-right">
+        <span class="progress" id="progress">1 / 10</span>
+        <button class="next-button" id="next-button" type="button" hidden>
+          Next <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <p class="lesson-label">Logic challenge</p>
+      <h1>Which box contains the prize?</h1>
+      <p class="rule" id="rule"></p>
+
+      <form id="puzzle-form">
+        <fieldset>
+          <legend class="visually-hidden">Choose the box containing the prize</legend>
+          <div class="boxes" id="boxes"></div>
+        </fieldset>
+        <button class="check-button" type="submit">Check answer</button>
+      </form>
+
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    </main>
+  </body>
+</html>
