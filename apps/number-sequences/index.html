@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Ten progressively harder number sequence exercises with immediate feedback."
+    />
+    <title>Number Sequences — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../" aria-label="Back to all resources">← Resources</a>
+      <div class="header-right">
+        <span class="progress" id="progress">1 / 10</span>
+        <button class="next-button" id="next-button" type="button" hidden>
+          Next <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <p class="lesson-label">Number sequences</p>
+      <h1>What number comes next?</h1>
+
+      <section class="exercise" aria-label="Number sequence exercise">
+        <div class="sequence" id="sequence" aria-label="Number sequence"></div>
+
+        <form id="answer-form" novalidate>
+          <label for="answer">Your answer</label>
+          <div class="answer-row">
+            <input
+              id="answer"
+              name="answer"
+              type="number"
+              step="1"
+              inputmode="numeric"
+              autocomplete="off"
+              required
+            />
+            <button type="submit">Check answer</button>
+          </div>
+        </form>
+
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+  </body>
+</html>
