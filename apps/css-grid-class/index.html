@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A practical, interactive extension lesson for learning CSS Grid."
+    />
+    <title>CSS Grid — Interactive Extension Lesson</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="back-link" href="../../">← All resources</a>
+      <a class="header-progress" href="#exercises"><span id="progress-count">0</span>/6 completed</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Extension lesson · Interactive CSS</p>
+        <h1>Learn <span>CSS Grid</span><br />by building.</h1>
+        <p class="hero-copy">
+          Grid organises elements into rows and columns. In this lesson, you will not memorise
+          a list of properties: you will write code, run it and see what happens.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#introduction">Start the lesson ↓</a>
+          <span>≈ 45 minutes · 6 exercises</span>
+        </div>
+        <div class="hero-demo" aria-hidden="true">
+          <div class="demo-card demo-card--wide">CSS</div>
+          <div class="demo-card">Grid</div>
+          <div class="demo-card">is</div>
+          <div class="demo-card demo-card--wide demo-card--accent">visual</div>
+        </div>
+      </section>
+
+      <section class="content-section intro" id="introduction">
+        <div class="section-number">00</div>
+        <div class="section-body">
+          <p class="eyebrow">Before you start</p>
+          <h2>What is Grid used for?</h2>
+          <p>
+            CSS Grid is a two-dimensional layout system. It lets us control
+            <strong>columns</strong> and <strong>rows</strong> at the same time. It is ideal for
+            galleries, dashboards, card layouts, full pages and any interface whose elements
+            need to line up precisely.
+          </p>
+          <aside class="note">
+            <strong>Grid vs Flexbox</strong>
+            <p>Use Flexbox when you mainly need to arrange items in one direction. Use Grid when rows and columns matter at the same time. Real projects often use both.</p>
+          </aside>
+
+          <h3>How does this lesson work?</h3>
+          <p>
+            Everything happens on this page. Each exercise includes a CSS editor and a live
+            preview. Change the code and the result will update immediately—there is nothing to
+            download or set up.
+          </p>
+          <aside class="note">
+            <strong>A useful routine</strong>
+            <p>Read the short explanation, try the challenge, observe the preview and only then open the suggested solution. Experimenting with the values is part of the lesson.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="exercises-heading" id="exercises">
+        <p class="eyebrow">Time to code</p>
+        <h2>Six challenges, from zero to a complete layout.</h2>
+        <p>Edit the CSS and watch the live preview. If you get stuck, reveal the solution.</p>
+      </section>
+
+      <div id="exercise-list"></div>
+
+      <section class="finish">
+        <p class="eyebrow">Lesson complete</p>
+        <h2>You can now think in two dimensions.</h2>
+        <p>
+          You have created flexible columns, controlled spacing, positioned elements, defined
+          areas and built a responsive layout. Your next step is to use these ideas in a project
+          of your own.
+        </p>
+        <button id="reset-course" class="secondary-button" type="button">Reset the whole lesson</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>CSS Grid · Interactive lesson</p>
+      <a href="../../">More resources by Borja Molina Zea</a>
+    </footer>
+  </body>
+</html>
