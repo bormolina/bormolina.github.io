@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A practical, interactive extension lesson for learning CSS Flexbox."
+    />
+    <title>CSS Flexbox — Interactive Extension Lesson</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="back-link" href="../../">← All resources</a>
+      <a class="header-progress" href="#exercises"><span id="progress-count">0</span>/6 completed</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Extension lesson · Interactive CSS</p>
+        <h1>Learn <span>Flexbox</span><br />by building.</h1>
+        <p class="hero-copy">
+          Flexbox arranges elements along one main direction. You will discover each property
+          exactly when you need it, change the code and see the result immediately.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#introduction">Start the lesson ↓</a>
+          <span>≈ 45 minutes · 6 exercises</span>
+        </div>
+        <div class="hero-demo" aria-hidden="true">
+          <div class="demo-card demo-card--full">Flex</div>
+          <div class="demo-card">1</div>
+          <div class="demo-card demo-card--wide demo-card--accent">grows</div>
+        </div>
+      </section>
+
+      <section class="content-section intro" id="introduction">
+        <div class="section-number">00</div>
+        <div class="section-body">
+          <p class="eyebrow">Before you start</p>
+          <h2>What is Flexbox used for?</h2>
+          <p>
+            CSS Flexbox is a one-dimensional layout system. It distributes items along a
+            <strong>main axis</strong> and aligns them along a <strong>cross axis</strong>. It is
+            particularly useful for navigation bars, button groups, card rows, centring content
+            and components whose size or spacing needs to adapt.
+          </p>
+          <aside class="note">
+            <strong>Flexbox vs Grid</strong>
+            <p>Flexbox works best when the layout follows one main direction: a row or a column. Grid is usually the better choice when rows and columns must be controlled together.</p>
+          </aside>
+
+          <h3>Two roles: container and items</h3>
+          <p>
+            You apply <code>display: flex</code> to a parent—the <strong>flex container</strong>.
+            Its direct children become <strong>flex items</strong>. Some properties belong to the
+            container, such as <code>justify-content</code>; others belong to individual items,
+            such as <code>flex-grow</code>.
+          </p>
+          <aside class="note">
+            <strong>How this lesson works</strong>
+            <p>Everything runs on this page. Read each explanation, edit the CSS and observe the live result. Reveal the solution only after experimenting.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="exercises-heading" id="exercises">
+        <p class="eyebrow">Time to code</p>
+        <h2>Six challenges, one flexible direction.</h2>
+        <p>Each new property is introduced in context, immediately before you use it.</p>
+      </section>
+
+      <div id="exercise-list"></div>
+
+      <section class="finish">
+        <p class="eyebrow">Lesson complete</p>
+        <h2>Your layouts can now bend without breaking.</h2>
+        <p>
+          You have controlled direction, spacing, alignment, wrapping and item growth. You have
+          also combined these ideas in a responsive interface built from your own HTML and CSS.
+        </p>
+        <button id="reset-course" class="secondary-button" type="button">Reset the whole lesson</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>CSS Flexbox · Interactive lesson</p>
+      <a href="../../">More resources by Borja Molina Zea</a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+@import url("../css-grid-class/styles.css");
+
+:root {
+  --accent: #3867ff;
+  --accent-dark: #1746cf;
+  --green: #146b5b;
+}
+
+.hero-demo {
+  grid-template-columns: repeat(3, 66px);
+  grid-auto-rows: 70px;
+  width: 212px;
+}
+
+.demo-card--wide { grid-column: span 2; }
+.demo-card--full { grid-column: 1 / -1; }
