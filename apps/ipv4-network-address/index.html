@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Practise finding the network address of an IPv4 address with a CIDR prefix."
+    />
+    <title>IPv4 Network Address — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../" aria-label="Back to all resources">← Resources</a>
+      <div class="header-actions">
+        <button class="next-button" id="next-button" type="button" hidden>
+          Next <span aria-hidden="true">→</span>
+        </button>
+        <button class="icon-button" id="settings-button" type="button" aria-label="Open settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15 1.7 1.7 0 0 0 3 14H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.57 1.7 1.7 0 0 0 10 3V3h4v.08A1.7 1.7 0 0 0 15.06 4.6a1.7 1.7 0 0 0 1.88-.34L17 4.2 19.83 7l-.06.06A1.7 1.7 0 0 0 19.43 9 1.7 1.7 0 0 0 21 10h.08v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <p class="lesson-label">IPv4 network address</p>
+      <h1>What is the network address?</h1>
+
+      <section class="exercise" aria-label="IPv4 network address exercise">
+        <p class="ip-address" id="ip-address"></p>
+        <p class="exercise-hint">Keep the network bits and set all host bits to zero.</p>
+
+        <form id="answer-form" novalidate>
+          <label for="answer">Network address</label>
+          <div class="answer-row">
+            <input
+              id="answer"
+              name="answer"
+              type="text"
+              inputmode="decimal"
+              placeholder="e.g. 192.168.1.0"
+              aria-describedby="answer-hint feedback"
+              spellcheck="false"
+              autocomplete="off"
+              required
+            />
+            <button type="submit">Check answer</button>
+          </div>
+        </form>
+        <p class="answer-hint" id="answer-hint">Enter four octets separated by dots, without /CIDR.</p>
+
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        <section class="explanation" id="explanation" aria-labelledby="explanation-title" hidden>
+          <h2 id="explanation-title">How to find the network</h2>
+          <p class="bit-legend"><span class="network-bits">Network bits: keep</span> &middot; <span class="host-bits">Host bits: set to zero</span></p>
+          <ol class="explanation-steps" id="explanation-steps"></ol>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="settings-dialog">
+      <form id="settings-form">
+        <div class="dialog-heading">
+          <h2>Settings</h2>
+          <button class="close-button" id="close-settings" type="button" aria-label="Close settings">×</button>
+        </div>
+        <p>Choose the range of CIDR prefixes used in the exercises (0–32).</p>
+        <div class="settings-fields">
+          <label>
+            Minimum prefix
+            <input id="min-prefix" name="min-prefix" type="number" min="0" max="32" value="16" required />
+          </label>
+          <label>
+            Maximum prefix
+            <input id="max-prefix" name="max-prefix" type="number" min="0" max="32" value="28" required />
+          </label>
+        </div>
+        <p class="settings-error" id="settings-error" role="alert"></p>
+        <button class="save-button" type="submit">Save and start</button>
+      </form>
+    </dialog>
+  </body>
+</html>
