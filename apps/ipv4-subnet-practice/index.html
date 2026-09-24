@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Practise IPv4 masks, network addresses, usable hosts, broadcasts and gateways."
+    />
+    <title>IPv4 Subnet Practice — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../" aria-label="Back to all resources">← Resources</a>
+      <div class="header-actions">
+        <button class="next-button" id="next-button" type="button" hidden>
+          Next <span aria-hidden="true">→</span>
+        </button>
+        <button class="icon-button" id="settings-button" type="button" aria-label="Open settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15 1.7 1.7 0 0 0 3 14H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.57 1.7 1.7 0 0 0 10 3V3h4v.08A1.7 1.7 0 0 0 15.06 4.6a1.7 1.7 0 0 0 1.88-.34L17 4.2 19.83 7l-.06.06A1.7 1.7 0 0 0 19.43 9 1.7 1.7 0 0 0 21 10h.08v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <p class="lesson-label">IPv4 subnet practice</p>
+      <h1>Can you complete the subnet?</h1>
+
+      <section class="exercise" aria-label="IPv4 subnet practice exercise">
+        <p class="ip-address" id="ip-address"></p>
+        <p class="given-mask" id="given-mask"></p>
+        <p class="exercise-hint">Convert the mask to the other notation and complete all five answers.</p>
+        <p class="exercise-rules">For these exercises: usable hosts = 2<sup>host bits</sup> &minus; 2.<br />The gateway is always the first usable IP: network address + 1.</p>
+        <form id="answer-form" novalidate>
+          <p class="answer-hint" id="answer-hint">Write addresses without /CIDR. Write the host count as a whole number without separators.</p>
+          <div class="answer-fields">
+            <div class="answer-field">
+              <label id="mask-label" for="mask">Subnet mask</label>
+              <input id="mask" name="mask" type="text" placeholder="e.g. 255.255.255.0" autocomplete="off" spellcheck="false" aria-describedby="answer-hint mask-feedback" required />
+              <p class="field-feedback" id="mask-feedback"></p>
+            </div>
+            <div class="answer-field">
+              <label id="network-label" for="network">Network address</label>
+              <input id="network" name="network" type="text" placeholder="e.g. 192.168.1.0" autocomplete="off" spellcheck="false" aria-describedby="answer-hint network-feedback" required />
+              <p class="field-feedback" id="network-feedback"></p>
+            </div>
+            <div class="answer-field">
+              <label id="hosts-label" for="hosts">Usable hosts</label>
+              <input id="hosts" name="hosts" type="text" placeholder="e.g. 254" autocomplete="off" spellcheck="false" aria-describedby="answer-hint hosts-feedback" required />
+              <p class="field-feedback" id="hosts-feedback"></p>
+            </div>
+            <div class="answer-field">
+              <label id="broadcast-label" for="broadcast">Broadcast address</label>
+              <input id="broadcast" name="broadcast" type="text" placeholder="e.g. 192.168.1.255" autocomplete="off" spellcheck="false" aria-describedby="answer-hint broadcast-feedback" required />
+              <p class="field-feedback" id="broadcast-feedback"></p>
+            </div>
+            <div class="answer-field">
+              <label id="gateway-label" for="gateway">Gateway address</label>
+              <input id="gateway" name="gateway" type="text" placeholder="e.g. 192.168.1.1" autocomplete="off" spellcheck="false" aria-describedby="answer-hint gateway-feedback" required />
+              <p class="field-feedback" id="gateway-feedback"></p>
+            </div>
+          </div>
+          <button class="save-button" id="check-button" type="submit">Check answers</button>
+        </form>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        <section class="explanation" id="explanation" aria-labelledby="explanation-title" hidden>
+          <h2 id="explanation-title">How to find each answer</h2>
+          <h3>1. Subnet mask</h3>
+          <p id="mask-explanation"></p>
+          <h3>2. Network address</h3>
+          <p class="bit-legend"><span class="network-bits">Network bits: keep</span> &middot; <span class="host-bits">Host bits: set to zero</span></p>
+          <ol class="explanation-steps" id="explanation-steps"></ol>
+          <h3>3. Usable hosts</h3>
+          <p id="hosts-explanation"></p>
+          <h3>4. Broadcast address</h3>
+          <p id="broadcast-explanation"></p>
+          <h3>5. Gateway address</h3>
+          <p id="gateway-explanation"></p>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="settings-dialog">
+      <form id="settings-form">
+        <div class="dialog-heading">
+          <h2>Settings</h2>
+          <button class="close-button" id="close-settings" type="button" aria-label="Close settings">×</button>
+        </div>
+        <p>Choose the range of CIDR prefixes used in the exercises (0–30).</p>
+        <div class="settings-fields">
+          <label>
+            Minimum prefix
+            <input id="min-prefix" name="min-prefix" type="number" min="0" max="30" value="16" required />
+          </label>
+          <label>
+            Maximum prefix
+            <input id="max-prefix" name="max-prefix" type="number" min="0" max="30" value="30" required />
+          </label>
+        </div>
+        <p class="settings-error" id="settings-error" role="alert"></p>
+        <button class="save-button" type="submit">Save and start</button>
+      </form>
+    </dialog>
+  </body>
+</html>
