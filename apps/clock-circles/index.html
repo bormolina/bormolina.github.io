@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A strategy game for two players: remove one circle or two connected circles from a clock. Take the last circle to win." />
+    <title>The 12 Circles — Borja Molina Zea</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../">← Resources</a>
+      <button class="secondary-button" id="restart-button" type="button">Restart game</button>
+    </header>
+
+    <main>
+      <p class="lesson-label">Strategy · 2 players</p>
+      <h1>The 12 Circles</h1>
+      <p class="rules" id="rules">Take turns removing <strong>one circle or two joined by a line</strong>.
+        Gaps break connections. The player who removes the last circle wins.</p>
+
+      <section class="game" id="game" aria-label="The 12 Circles game" aria-describedby="rules">
+        <div class="players" role="group" aria-label="Players">
+          <div class="player-card" id="player-1"><strong>Player 1</strong><span id="player-1-state">Your turn</span></div>
+          <div class="player-card" id="player-2"><strong>Player 2</strong><span id="player-2-state">Waiting</span></div>
+        </div>
+        <div role="status" aria-live="polite" aria-atomic="true">
+          <p class="turn" id="turn"></p>
+          <p class="last-move" id="last-move"></p>
+        </div>
+        <div class="clock" id="clock" role="group" aria-label="Circles at the positions of a clock">
+          <svg class="connections" id="connections" viewBox="0 0 100 100" aria-hidden="true"></svg>
+          <div class="remaining" aria-hidden="true"><strong id="remaining-count">12</strong><span id="remaining-label">circles remaining</span></div>
+        </div>
+        <p class="selection" id="selection" role="status" aria-live="polite">Player 1: select one circle or two connected circles.</p>
+        <div class="actions">
+          <button class="primary-button" id="remove-button" type="button" disabled>Player 1: remove selection</button>
+          <button class="secondary-button" id="clear-button" type="button" disabled>Clear selection</button>
+        </div>
+        <p class="hint">Click a circle to select it, then click it again to deselect it.
+          Confirm with “Remove selection” to end your turn.</p>
+        <noscript><p>Enable JavaScript in your browser to play.</p></noscript>
+      </section>
+    </main>
+  </body>
+</html>
