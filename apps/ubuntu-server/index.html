@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Instala Ubuntu Server LTS en VirtualBox paso a paso, con 4 GB de RAM, capturas pendientes y pequeñas comprobaciones del sistema y la red." />
+  <title>Ubuntu Server en VirtualBox · Guía paso a paso</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header"><a href="../../">← Todos los recursos</a></header>
+  <main>
+    <header class="hero"><h1><span>Ubuntu Server</span> en VirtualBox</h1></header>
+    <nav class="contents" aria-label="Índice del tutorial">
+      <strong>El recorrido</strong>
+      <ol><li><a href="#preparacion">Preparar</a></li><li><a href="#maquina">Crear la máquina</a></li><li><a href="#comprobar-nat">Comprobar NAT</a></li><li><a href="#instalacion">Instalar Ubuntu</a></li><li><a href="#ajustes">Primer arranque</a></li><li><a href="#comprobaciones">Comprobar</a></li><li><a href="#problemas">Resolver problemas</a></li></ol>
+    </nav>
+
+    <section class="lesson" id="preparacion">
+      <p class="eyebrow">01 · Antes de empezar</p><h2>Prepara el equipo y la ISO</h2>
+      <p>En esta práctica instalarás <strong>Ubuntu Server 26.04 LTS</strong> en una máquina virtual nueva. Usaremos la ISO de servidor para <strong>Intel o AMD de 64 bits (amd64)</strong>. El ordenador físico es el anfitrión y Ubuntu será el sistema invitado.</p>
+      <ol>
+        <li>Instala <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> si aún no lo tienes. Abre la aplicación al terminar y reinicia el anfitrión si el instalador lo solicita.</li>
+        <li>Comprueba que la virtualización Intel VT-x o AMD-V/SVM está activada en la BIOS/UEFI. En un anfitrión Windows puedes consultarlo en <strong>Administrador de tareas → Rendimiento → CPU → Virtualización</strong>.</li>
+        <li>Abre la <a href="https://ubuntu.com/download/server">página oficial de descarga de Ubuntu Server</a>. Descarga la ISO <strong>26.04 LTS</strong> para Intel/AMD de 64 bits. Puede llevar un número de revisión, como <strong>26.04.1</strong>. El nombre del archivo incluye <code>live-server-amd64.iso</code>.</li>
+        <li>Guarda la ISO sin descomprimirla. Reserva al menos 25 GB libres en el anfitrión y suficiente RAM para ceder 4 GB a la VM sin dejar al ordenador sin memoria.</li>
+      </ol>
+      <aside class="note"><strong>Trabajaremos con una consola.</strong><p>Ubuntu Server se administra inicialmente mediante comandos y no instala un escritorio gráfico por defecto. Al terminar verás un inicio de sesión en texto. La ISO amd64 también sirve para procesadores Intel; un equipo ARM, como un Mac con Apple Silicon, requiere otra imagen y una configuración distinta.</p></aside>
+      <div class="check"><strong>Antes de seguir:</strong> VirtualBox se abre y tienes descargada la ISO de Ubuntu Server LTS para amd64.</div>
+    </section>
+
+    <section class="lesson" id="maquina">
+      <p class="eyebrow">02 · El hardware virtual</p><h2>Crea la máquina de la práctica</h2>
+      <p>Configuraremos la máquina dentro del asistente de <strong>Nueva</strong>. <strong>No pulses Terminar hasta haber elegido la memoria, los procesadores y el tamaño del disco.</strong> Si estás en modo experto, despliega los apartados de hardware y disco en esa misma ventana; si el asistente muestra varias pantallas, avanza con <strong>Siguiente</strong>.</p>
+      <h3>Paso 1. Nombre, ISO e instalación manual</h3>
+      <ol>
+        <li>En VirtualBox pulsa <strong>Nueva</strong>. Escribe <code>UBUNTU-PRACTICA</code> como nombre y elige una carpeta con espacio suficiente. Si ese nombre ya tiene una carpeta creada, utiliza otro, como <code>UBUNTU-PRACTICA-02</code>.</li>
+        <li>Selecciona la ISO. Revisa el tipo <strong>Linux</strong> y la versión <strong>Ubuntu (64-bit)</strong>, o el perfil específico de Ubuntu de 64 bits que ofrezca tu versión.</li>
+        <li>Desactiva <strong>Instalación desatendida</strong>. Realizaremos los pasos del instalador a mano.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/01-nueva-maquina.png. --><img src="images/01-nueva-maquina.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 01: nombre de la VM, ISO de Ubuntu Server e instalación manual." /><figcaption><strong>Captura 01.</strong> Nueva máquina: nombre, ISO, perfil Ubuntu de 64 bits e instalación desatendida desactivada.</figcaption></figure>
+      <h3>Paso 2. Elige el hardware y el disco antes de terminar</h3>
+      <div class="table-wrap"><table><caption>Configuración de UBUNTU-PRACTICA</caption><thead><tr><th scope="col">Recurso</th><th scope="col">Valor para la práctica</th></tr></thead><tbody>
+        <tr><th scope="row">RAM</th><td><strong>4096 MB (4 GB). No asignes más.</strong></td></tr>
+        <tr><th scope="row">Procesadores</th><td>2 CPU virtuales.</td></tr>
+        <tr><th scope="row">Disco</th><td>Un disco nuevo VDI de 25 GB, reservado dinámicamente.</td></tr>
+        <tr><th scope="row">Firmware</th><td>EFI/UEFI activado antes de instalar. Conserva ese modo después.</td></tr>
+      </tbody></table></div>
+      <ol>
+        <li>Sin salir del asistente, abre el apartado <strong>Hardware</strong>. En <strong>Memoria base</strong>, escribe <strong>4096 MB (4 GB)</strong>. En <strong>Procesadores</strong>, selecciona <strong>2</strong>.</li>
+        <li>Activa <strong>EFI / Usar EFI</strong> en ese apartado.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/02a-hardware.png. --><img src="images/02a-hardware.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02a: hardware con 4096 MB de RAM, 2 CPU y EFI activado." /><figcaption><strong>Captura 02a.</strong> Apartado Hardware del asistente: 4096 MB de RAM, 2 CPU y EFI activado.</figcaption></figure>
+      <ol start="3">
+        <li>Abre el apartado <strong>Disco duro</strong> y selecciona <strong>Crear un disco duro virtual ahora</strong>. En <strong>Tamaño del disco</strong>, introduce <strong>25 GB</strong>. Este es el campo donde se elige la capacidad del disco.</li>
+        <li>Selecciona <strong>VDI</strong> si aparece el selector de formato. Deja desmarcada <strong>Reservar tamaño completo / Pre-allocate Full Size</strong> para que el almacenamiento sea dinámico.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/02b-disco-vdi.png. --><img src="images/02b-disco-vdi.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02b: creación del disco VDI de 25 GB con reserva dinámica." /><figcaption><strong>Captura 02b.</strong> Apartado Disco duro del asistente: disco nuevo VDI de 25 GB y reserva de tamaño completo desactivada.</figcaption></figure>
+      <p>El VDI dinámico ocupa espacio a medida que guardas datos, hasta su límite. Los 25 GB son la capacidad del disco virtual; el anfitrión debe mantener espacio libre para que pueda crecer.</p>
+      <p>Revisa las opciones elegidas o la pantalla de resumen: ISO de Ubuntu Server, instalación manual, <strong>4096 MB, 2 CPU, EFI y disco nuevo de 25 GB</strong>. Ahora sí, pulsa <strong>Terminar</strong>. VirtualBox montará la ISO seleccionada y creará el disco con esos valores.</p>
+    </section>
+
+    <section class="lesson" id="comprobar-nat">
+      <h2>Después de crear la máquina: comprueba la red NAT</h2>
+      <p>La red se comprueba una vez creada la VM. <strong>NAT no aparece en el asistente inicial</strong>: VirtualBox la configura por defecto para que Ubuntu pueda salir a Internet a través del anfitrión.</p>
+      <ol>
+        <li>Selecciona la máquina <strong>apagada</strong> y abre <strong>Configuración → Red → Adaptador 1</strong>.</li>
+        <li>Comprueba que <strong>Habilitar adaptador de red</strong> está marcado y que <strong>Conectar a</strong> muestra <strong>NAT</strong>. Si ya está así, déjalo como está.</li>
+        <li>Comprueba también <strong>Cable conectado</strong>; despliega las opciones avanzadas si es necesario. Si corriges algún valor, guarda con <strong>Aceptar</strong>.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/02c-red-nat.png. --><img src="images/02c-red-nat.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02c: adaptador de red habilitado, NAT y cable conectado tras crear la VM." /><figcaption><strong>Captura 02c.</strong> Comprobación posterior a la creación: Adaptador 1 habilitado, conexión NAT y Cable conectado.</figcaption></figure>
+      <div class="check"><strong>Lista para arrancar:</strong> la VM tiene la ISO, el disco nuevo y la red comprobados. Continúa con la instalación.</div>
+    </section>
+
+    <section class="lesson" id="instalacion">
+      <p class="eyebrow">03 · Instalación manual</p><h2>Sigue el asistente de Ubuntu Server</h2>
+      <p>Algunas pantallas pueden cambiar de orden o conservar textos en inglés según la revisión de la ISO. Las opciones principales están descritas en la <a href="https://canonical-subiquity.readthedocs-hosted.com/en/latest/tutorial/screen-by-screen.html">guía oficial del instalador</a>.</p>
+      <h3>Paso 3. Arranca y aprende a moverte</h3>
+      <p>Pulsa <strong>Iniciar</strong>. En el menú de arranque de la ISO selecciona <strong>Try or Install Ubuntu Server</strong> y espera a que cargue el asistente.</p>
+      <p>Usa las <strong>flechas</strong> para recorrer opciones, <strong>Tab</strong> para cambiar de campo, <strong>Espacio</strong> para marcar casillas y <strong>Intro</strong> para confirmar. Normalmente avanzarás con <strong>Hecho / Done</strong>. Para liberar el teclado o el ratón, utiliza la tecla anfitrión indicada abajo en VirtualBox, normalmente Ctrl derecho en Windows. <a href="https://canonical-subiquity.readthedocs-hosted.com/en/latest/tutorial/operate-server-installer.html">Controles del instalador</a>.</p>
+      <h3>Paso 4. Idioma, teclado y tipo de instalación</h3>
+      <p>Selecciona <strong>Español</strong> si está disponible. Si la consola solo ofrece inglés, puedes continuar con los nombres ingleses de esta guía. Elige la distribución de teclado que utilizas, por ejemplo <strong>Spanish</strong>, y comprueba su variante.</p>
+      <p>Si ofrece actualizar el instalador, hazlo con conexión a Internet y espera a que se reabra.</p>
+      <figure><!-- Sustituye src por images/03-teclado.png. --><img src="images/03-teclado.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 03: distribución y variante del teclado en el instalador." /><figcaption><strong>Captura 03.</strong> Distribución y variante del teclado seleccionadas en el instalador.</figcaption></figure>
+      <h4>Después del teclado: Choose the type of installation</h4>
+      <ul>
+        <li>Mantén seleccionado <strong>Ubuntu Server</strong>. Incluye una selección de herramientas para administrar el servidor desde la consola, adecuada para esta práctica.</li>
+        <li>Deja sin seleccionar <strong>Ubuntu Server (minimized)</strong>. Reduce los paquetes instalados y está pensado para entornos donde apenas se inicia sesión de forma interactiva; para aprender y trabajar en la consola usaremos la opción estándar.</li>
+        <li>Deja desmarcado <strong>Search for third-party drivers</strong>. En esta máquina virtual, Ubuntu ya incluye los controladores necesarios para el hardware virtual de VirtualBox. En un equipo físico puede ser útil activarla si algún componente necesita controladores adicionales del fabricante.</li>
+      </ul>
+      <p>Con esas opciones, lleva el foco a <strong>Hecho</strong> con Tab o las flechas y pulsa <strong>Intro</strong>. La opción estándar sigue siendo Ubuntu Server sin escritorio gráfico.</p>
+      <h3>Paso 5. Red, proxy y repositorio</h3>
+      <ol>
+        <li>En <strong>Network configuration</strong>, mantén la configuración automática. En esta práctica, la interfaz <code>enp0s3</code> muestra <strong>DHCPv4 <code>10.0.2.15/24</code></strong>: ha recibido una dirección automáticamente del servicio DHCP de VirtualBox. <code>/24</code> equivale a la máscara <code>255.255.255.0</code>. El nombre de la interfaz y la dirección pueden variar. Conserva también la configuración IPv6 que aparezca y no selecciones <strong>Create bond</strong>, cuya utilidad se explica debajo. Para esta instalación basta con una interfaz y DHCP; una IP fija se puede configurar en otra práctica. Selecciona <strong>Hecho</strong> y pulsa <strong>Intro</strong>. Tener una IP confirma la asignación de dirección, pero el acceso a Internet se comprobará al conectar con el repositorio.</li>
+        <li>Deja el <strong>proxy</strong> vacío salvo que el centro te haya proporcionado uno.</li>
+        <li>En <strong>Ubuntu archive mirror configuration</strong>, conserva <code>http://archive.ubuntu.com/ubuntu/</code>. Espera a que aparezca <strong>This mirror location passed tests</strong>, selecciona <strong>Hecho</strong> y pulsa <strong>Intro</strong>.</li>
+      </ol>
+      <aside class="note">
+        <strong>¿Qué es «Create bond» y por qué no lo usamos?</strong>
+        <p>Un <em>bond</em> agrupa interfaces de red para que Ubuntu las gestione como una sola interfaz lógica, por ejemplo <code>bond0</code>. Según el modo elegido, puede servir para:</p>
+        <ul>
+          <li><strong>Mantener la conexión ante un fallo:</strong> en modo activo/reserva, una interfaz transporta el tráfico y otra toma el relevo si falla el enlace de la primera. Por ejemplo, un servidor con dos tarjetas y dos cables puede seguir conectado si se desconecta uno.</li>
+          <li><strong>Repartir tráfico entre enlaces:</strong> algunos modos permiten aprovechar varios enlaces para distintas comunicaciones. No significa que una descarga vaya automáticamente al doble de velocidad; depende del modo y de cómo se reparta el tráfico. Algunos modos, como LACP, requieren también configurar un switch compatible.</li>
+        </ul>
+        <p><strong>En esta práctica solo tenemos una interfaz, <code>enp0s3</code>.</strong> No hay un segundo enlace que aporte respaldo o capacidad adicional. La conexión NAT y DHCP ya cubre lo que necesitamos para instalar y descargar actualizaciones, así que dejamos <strong>Create bond</strong> sin utilizar.</p>
+        <p>También se puede practicar bonding en máquinas virtuales con varias interfaces, pero añadir dos tarjetas virtuales no garantiza dos conexiones físicas independientes. Si ambas dependen de la misma conexión del anfitrión, el bond no evita que su caída deje a la VM sin Internet. <a href="https://help.ubuntu.com/community/UbuntuBonding">Más información sobre bonding en Ubuntu</a>.</p>
+      </aside>
+      <figure><!-- Sustituye src por images/04-red-dhcp.png. --><img src="images/04-red-dhcp.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 04: interfaz Ethernet con dirección IPv4 obtenida mediante DHCP." /><figcaption><strong>Captura 04.</strong> Red del instalador con una IPv4 asignada. El nombre de la interfaz puede variar.</figcaption></figure>
+      <h4>¿Qué es un mirror y qué comprueba esta pantalla?</h4>
+      <p>Un <strong>repositorio</strong> contiene paquetes de software y sus índices: las listas de programas y versiones disponibles. Un <strong>mirror</strong> es un servidor que ofrece una copia de ese contenido. Ubuntu lo utiliza para descargar programas y actualizaciones sin tener que buscar instaladores por distintas páginas web.</p>
+      <p>Para esta práctica conservamos <code>http://archive.ubuntu.com/ubuntu/</code>, la dirección propuesta. Cambiarla tendría sentido si el centro indicara un servidor propio o si otro mirror oficial ofreciera mejor disponibilidad o velocidad. No hay que escribir aquí la IP de nuestra VM ni la puerta de enlace.</p>
+      <p>El mensaje <strong>This mirror location passed tests</strong> confirma que la prueba del repositorio ha terminado correctamente. En la captura se han descargado índices desde <code>archive.ubuntu.com</code>: ya hemos comprobado resolución del nombre y acceso a ese servidor, no solo la asignación de una IP. Esto no implica que todos los servicios de Internet sean accesibles.</p>
+      <p>Las líneas que empiezan por <code>file:/cdrom</code> corresponden a la ISO montada; las que muestran <code>http://archive.ubuntu.com</code>, al repositorio de red. <code>Leyendo lista de paquetes</code> indica que se están procesando los índices, no que se estén instalando todos esos programas. Una línea <code>Ign</code> aislada no significa por sí sola que la prueba haya fallado: fíjate en el resultado final.</p>
+      <div class="check"><strong>Antes de seguir:</strong> aparece <strong>This mirror location passed tests</strong>. Conserva la dirección y pulsa <strong>Hecho</strong>. Si la prueba falla, revisa la conexión del anfitrión, NAT, DHCP y el proxy antes de continuar.</div>
+      <h3>Paso 6. Utiliza el disco virtual completo</h3>
+      <ol>
+        <li>En <strong>Guided storage configuration</strong>, mantén seleccionado <strong>Use an entire disk</strong> y el disco <strong>VBOX_HARDDISK de 25.000G</strong>. Es el disco virtual creado para esta práctica.</li>
+        <li>Desmarca <strong>Set up this disk as an LVM group</strong>: sitúate en la casilla con Tab o las flechas y pulsa Espacio para cambiar <code>[X]</code> por <code>[ ]</code>. Deja sin marcar <strong>Encrypt the LVM group with LUKS</strong> y no selecciones <strong>Custom storage layout</strong>.</li>
+        <li>Pulsa <strong>Hecho</strong> para pasar al resumen. Debe existir una partición montada en <code>/</code> y, con EFI, otra en <code>/boot/efi</code>. El instalador prepara las particiones automáticamente.</li>
+        <li>Pulsa <strong>Hecho / Done</strong>. Confirma <strong>Continuar / Continue</strong> en el aviso de escritura solo después de comprobar que el destino es el disco nuevo de esta VM.</li>
+      </ol>
+      <aside class="note">
+        <strong>¿Para qué sirven las opciones de almacenamiento?</strong>
+        <p><strong>Use an entire disk:</strong> permite al instalador preparar automáticamente las particiones del disco seleccionado. Aquí se refiere al VDI de 25 GB conectado a la VM, no al disco completo del ordenador anfitrión.</p>
+        <p><strong>LVM (Logical Volume Manager):</strong> añade una capa de gestión entre los discos y los sistemas de archivos. Permite organizar el espacio en volúmenes lógicos y facilita ampliarlos cuando se incorpora más capacidad. Es útil en servidores y también funciona en máquinas virtuales. Lo desactivamos para que esta primera práctica tenga un esquema de particiones sencillo; no porque LVM sea incorrecto o incompatible.</p>
+        <p><strong>LUKS:</strong> cifra los datos del volumen para protegerlos si alguien obtiene el disco o una copia del VDI. En esta instalación con contraseña tendrías que desbloquearlo al arrancar, antes de iniciar sesión. Esa contraseña es distinta de la del usuario. Lo dejamos desactivado para esta práctica básica. La opción de clave de recuperación solo tiene sentido si se utiliza el cifrado; no sustituye una copia de seguridad.</p>
+        <p><strong>Custom storage layout:</strong> permite definir manualmente las particiones y sus puntos de montaje. Resulta útil cuando necesitas un reparto concreto del espacio. Aquí dejamos que el instalador cree el esquema automáticamente.</p>
+      </aside>
+      <aside class="note"><strong>El disco seleccionado se borrará.</strong><p>En esta práctica es el VDI vacío que acabas de crear. Si ves discos o datos que no esperabas, vuelve a la configuración de almacenamiento antes de confirmar. <a href="https://canonical-subiquity.readthedocs-hosted.com/en/latest/howto/configure-storage.html">Opciones de almacenamiento de Ubuntu</a>.</p></aside>
+      <h4>Cómo leer el resumen de Storage configuration</h4>
+      <p>Un <strong>punto de montaje</strong> es la ubicación del árbol de carpetas donde se hace accesible un sistema de archivos. En esta instalación aparecen dos particiones nuevas del disco <strong>VBOX_HARDDISK de 25.000G</strong>:</p>
+      <div class="table-wrap"><table><caption>Particiones previstas en esta práctica</caption><thead><tr><th scope="col">Punto de montaje</th><th scope="col">Tamaño mostrado</th><th scope="col">Formato y función</th></tr></thead><tbody>
+        <tr><th scope="row"><code>/</code></th><td>23.948G</td><td><strong>ext4</strong>. Es la raíz del sistema: contiene Ubuntu, los programas, la configuración y, en este esquema, las carpetas de los usuarios.</td></tr>
+        <tr><th scope="row"><code>/boot/efi</code></th><td>1.049G</td><td><strong>FAT32</strong>, marcada como <strong>ESP</strong> (EFI System Partition). Guarda los archivos de arranque que utiliza el firmware UEFI para iniciar el sistema.</td></tr>
+      </tbody></table></div>
+      <p>Los tamaños pueden variar ligeramente según el instalador. La raíz ocupa menos de 25 GB porque parte del disco se reserva para EFI y una pequeña cantidad para la estructura y alineación de las particiones. Estos valores indican la capacidad asignada, no cuánto ocupa ya Ubuntu.</p>
+      <p><strong>No available devices</strong> significa que no quedan dispositivos o espacio sin asignar disponibles para añadir al esquema: el disco ya aparece en <strong>Dispositivos utilizados</strong>. No significa que Ubuntu se haya quedado sin espacio libre para guardar archivos. Las opciones RAID y LVM desactivadas no son un error ni hacen falta para este reparto.</p>
+      <p><strong>new</strong> y <strong>to be formatted</strong> indican las operaciones previstas al confirmar. Si el resumen coincide, pulsa <strong>Hecho</strong> y, en el aviso de borrado posterior, confirma <strong>Continuar</strong> tras comprobar de nuevo que se trata del disco virtual de esta práctica. <strong>Restablecer</strong> descarta el reparto propuesto; no lo pulses si quieres conservarlo.</p>
+      <figure><!-- Sustituye src por images/05-almacenamiento.png. --><img src="images/05-almacenamiento.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 05: raíz ext4 de 23.948G y partición EFI FAT32 de 1.049G en el disco virtual." /><figcaption><strong>Captura 05.</strong> Resumen de Storage configuration: disco de 25 GB, raíz ext4 en / y partición FAT32 en /boot/efi, antes de confirmar la escritura.</figcaption></figure>
+      <h3>Paso 7. Crea tu usuario</h3>
+      <p>Para evitar confusiones con las credenciales, usaremos siempre <code>usuario</code> como nombre de usuario y contraseña en esta práctica. Completa <strong>Profile configuration</strong> así:</p>
+      <ul><li><strong>Su nombre:</strong> <code>Usuario</code>. Es el nombre descriptivo de la cuenta.</li><li><strong>Your server’s name:</strong> <code>ubuntu-practica</code>. Identifica el servidor; usamos minúsculas y un guion, sin espacios ni tildes.</li><li><strong>Elija un nombre de usuario:</strong> <code>usuario</code>. Es el identificador que escribirás para iniciar sesión.</li><li><strong>Elija una contraseña:</strong> <code>usuario</code>.</li><li><strong>Confirme la contraseña:</strong> <code>usuario</code>.</li></ul>
+      <aside class="note"><strong>Solo para esta práctica: nunca uses una contraseña así en producción.</strong><p><code>usuario</code> es una contraseña fácil de adivinar y coincide con el nombre de la cuenta. La usamos únicamente para simplificar esta VM de aprendizaje. En un servidor real utiliza una contraseña larga, única y difícil de adivinar; cambia estas credenciales antes de reutilizar la VM fuera de la práctica o exponer servicios a la red.</p></aside>
+      <p>Este usuario podrá administrar el sistema con <code>sudo</code>, que solicitará la misma contraseña. El nombre de la VM en VirtualBox y el nombre del servidor dentro de Ubuntu son ajustes distintos. Una vez completados los campos, selecciona <strong>Hecho</strong> y pulsa <strong>Intro</strong>.</p>
+      <figure><!-- Sustituye src por images/06-perfil.png. --><img src="images/06-perfil.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 06: perfil con servidor ubuntu-practica y usuario usuario." /><figcaption><strong>Captura 06.</strong> Perfil de la cuenta <code>usuario</code> y nombre del servidor <code>ubuntu-practica</code>.</figcaption></figure>
+      <h3>Paso 8. Servicios opcionales</h3>
+      <h4>Upgrade to Ubuntu Pro</h4>
+      <p>Mantén seleccionado <strong>Skip for now</strong> (omitir por ahora), selecciona <strong>Continuar</strong> y pulsa <strong>Intro</strong>.</p>
+      <p><strong>Ubuntu Pro</strong> es una suscripción opcional que amplía la cobertura de actualizaciones de seguridad y ofrece funciones adicionales para entornos profesionales. No la necesitamos para esta práctica. Omitirla no impide instalar programas ni recibir las actualizaciones incluidas en el mantenimiento estándar de Ubuntu LTS. Tampoco convierte la instalación en una versión de prueba. Puedes activarla más adelante si la necesitas.</p>
+      <h4>SSH configuration</h4>
+      <p>Deja desmarcado <strong>Instalar servidor OpenSSH</strong>, selecciona <strong>Hecho</strong> y pulsa <strong>Intro</strong>.</p>
+      <p><strong>SSH (Secure Shell)</strong> permite iniciar sesión en el servidor desde otro ordenador a través de una conexión cifrada y ejecutar comandos. OpenSSH es el software que proporciona ese servicio. Es habitual en servidores reales, que se administran sin tener un monitor y un teclado conectados.</p>
+      <p>En esta práctica utilizamos directamente la consola de VirtualBox. Más adelante sí usaremos SSH, pero lo dejamos sin instalar ahora para aprender a instalarlo y configurarlo cuando toque: comprobar el servicio, preparar la conexión y acceder desde otro equipo. Es una decisión didáctica; instalarlo desde este asistente también sería válido. Omitir OpenSSH no afecta a la conexión a Internet, las actualizaciones ni el inicio de sesión local.</p>
+      <ul>
+        <li><strong>Permitir autenticación con contraseña por SSH:</strong> permitiría entrar remotamente con el usuario y su contraseña. Aunque veas una X, la opción está atenuada porque no has seleccionado instalar el servidor OpenSSH; esa X no significa que ya haya acceso remoto habilitado. La contraseña <code>usuario</code> de esta práctica no debe utilizarse para exponer un servicio SSH.</li>
+        <li><strong>Import SSH key:</strong> permite incorporar una clave pública autorizada para iniciar sesión. El equipo desde el que te conectas conserva la clave privada correspondiente, que no se comparte. Este método evita enviar la contraseña de la cuenta para autenticarse.</li>
+        <li><strong>No authorized key:</strong> indica que no has añadido ninguna clave pública. Es normal en esta práctica y no impide iniciar sesión en la consola.</li>
+      </ul>
+      <p>Instalar OpenSSH por sí solo tampoco configura el acceso desde el anfitrión a una VM con NAT: para una futura práctica habría que preparar la conectividad, por ejemplo mediante reenvío de puertos.</p>
+      <h4>Featured server snaps</h4>
+      <p>Deja todas las casillas <code>[ ]</code> sin marcar. Lleva el foco a <strong>Hecho</strong> con Tab o las flechas y pulsa <strong>Intro</strong>. La fila resaltada solo indica dónde está el foco: una aplicación se selecciona con Espacio y su casilla pasa a mostrar <code>[X]</code>. Intro sobre una aplicación abre sus detalles.</p>
+      <p>Los <strong>snaps</strong> son un formato de paquetes de software. Esta pantalla ofrece aplicaciones adicionales para servidores; no son componentes obligatorios para instalar Ubuntu Server. Por ejemplo, <strong>Nextcloud</strong> permite ofrecer servicios de nube y archivos, <strong>MicroK8s</strong> proporciona Kubernetes para gestionar aplicaciones en contenedores y <strong>Prometheus</strong> sirve para monitorizar sistemas y recoger métricas.</p>
+      <p>Partiremos de una instalación básica y añadiremos cada servicio cuando corresponda, aprendiendo a instalarlo, configurarlo y comprobarlo. Así evitamos descargas, consumo de disco y servicios que todavía no necesitamos. No seleccionar ninguno no impide usar Ubuntu ni instalarlos más adelante; esta lista tampoco incluye todo el software disponible.</p>
+      <h3>Paso 9. Finaliza y retira la ISO</h3>
+      <p>Cuando aparezca <strong>Instalando el sistema</strong>, Ubuntu ya se está instalando. Las líneas de texto muestran el registro de las tareas que realiza: copiar archivos, instalar paquetes y configurar el sistema. <strong>Ahora toca tener paciencia:</strong> puede tardar varios minutos según el equipo y la conexión. No tienes que escribir nada; no apagues ni reinicies la VM durante este proceso. Espera a que el instalador indique que ha terminado y ofrezca reiniciar.</p>
+      <p>Espera a que termine la instalación y pulsa <strong>Reiniciar ahora / Reboot Now</strong>. Cuando solicite retirar el medio, usa <strong>Dispositivos → Unidades ópticas → Retirar disco de la unidad virtual</strong> en VirtualBox. Después pulsa Intro dentro de la VM.</p>
+      <p>Si no permite retirar la ISO, espera a que finalice la instalación y llegue a ese aviso; entonces apaga la VM y retírala desde <strong>Configuración → Almacenamiento</strong>. Conserva conectado el VDI y vuelve a iniciar.</p>
+      <figure><!-- Sustituye src por images/07-instalacion-completa.png. --><img src="images/07-instalacion-completa.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 07: instalación completada y opción para reiniciar." /><figcaption><strong>Captura 07.</strong> Pantalla que confirma que la instalación ha terminado, antes de reiniciar.</figcaption></figure>
+    </section>
+
+    <section class="lesson" id="ajustes">
+      <p class="eyebrow">04 · Primer arranque</p><h2>Inicia sesión y actualiza</h2>
+      <h3>Paso 10. Entra en la consola</h3>
+      <p>Espera a que aparezca <code>ubuntu-practica login:</code>. Escribe <code>usuario</code> y pulsa Intro. Introduce la contraseña: <strong>no aparecerán letras ni asteriscos mientras escribes</strong>. Es normal.</p>
+      <p>Tras entrar verás un indicador parecido a <code>usuario@ubuntu-practica:~$</code>. Si los mensajes del primer arranque ocultan el inicio de sesión, espera a que terminen y pulsa Intro.</p>
+      <figure><!-- Sustituye src por images/08-primer-acceso.png. --><img src="images/08-primer-acceso.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 08: consola tras iniciar sesión como usuario en ubuntu-practica." /><figcaption><strong>Captura 08.</strong> Primer acceso correcto con el indicador de comandos visible.</figcaption></figure>
+      <h3>Paso 11. Instala las actualizaciones</h3>
+      <p>Ejecuta estos comandos uno a uno <strong>dentro de Ubuntu</strong>. Escribe solo el comando, sin copiar el indicador <code>$</code>.</p>
+      <pre><code>sudo apt update
+sudo apt upgrade</code></pre>
+      <p><code>apt</code> gestiona paquetes: <code>update</code> actualiza la lista de paquetes disponibles y <code>upgrade</code> instala actualizaciones de los paquetes instalados. Revisa el resumen y confirma con la letra que indique el mensaje (<code>S</code> o <code>Y</code>). Espera a que termine antes de ejecutar:</p>
+      <pre><code>sudo reboot</code></pre>
+      <p><code>reboot</code>, sin opciones adicionales, reinicia el sistema.</p>
+      <p>Vuelve a iniciar sesión después del reinicio. Para el uso básico de esta consola no necesitas instalar Guest Additions ni un escritorio.</p>
+    </section>
+
+    <section class="lesson" id="comprobaciones">
+      <p class="eyebrow">05 · Pequeñas comprobaciones</p><h2>Comprueba que todo va bien</h2>
+      <p>Ejecuta cada bloque por separado y compara el resultado. Si usaste otro usuario o nombre de servidor, verás tus propios valores.</p>
+      <h3>1. Sistema y nombre del equipo</h3>
+      <pre><code>cat /etc/os-release
+hostname</code></pre>
+      <p><code>cat</code> muestra el contenido de un archivo; <code>/etc/os-release</code> es el archivo con la identificación de Ubuntu. <code>hostname</code>, sin argumentos, muestra el nombre del equipo.</p>
+      <p><strong>Esperado:</strong> Ubuntu 26.04 LTS (puede incluir un número de revisión) y <code>ubuntu-practica</code> como nombre de equipo.</p>
+      <h3>2. Usuario y permisos de administración</h3>
+      <pre><code>whoami
+sudo whoami</code></pre>
+      <p><code>whoami</code> muestra el usuario con cuyos permisos se ejecuta la orden; no lleva opciones. Al anteponer <code>sudo</code>, se ejecuta como administrador.</p>
+      <p><strong>Esperado:</strong> el primer comando devuelve <code>usuario</code> y el segundo <code>root</code>. Esto confirma que tu usuario puede ejecutar una orden con permisos de administrador.</p>
+      <h3>3. RAM, procesadores y disco</h3>
+      <pre><code>free -h
+nproc
+lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
+df -h /</code></pre>
+      <ul>
+        <li><code>free</code> muestra el uso de RAM y memoria de intercambio; <code>-h</code> presenta las cantidades en unidades legibles, como MiB y GiB.</li>
+        <li><code>nproc</code>, sin opciones, muestra cuántas unidades de procesamiento están disponibles para el proceso.</li>
+        <li><code>lsblk</code> lista discos y particiones; <code>-o</code> elige las columnas: <code>NAME,SIZE,FSTYPE,MOUNTPOINTS</code> son nombre, tamaño, sistema de archivos y puntos de montaje.</li>
+        <li><code>df</code> muestra espacio ocupado y libre de los sistemas de archivos; aquí <code>-h</code> también usa unidades legibles y <code>/</code> limita la consulta al sistema de archivos que contiene la raíz.</li>
+      </ul>
+      <p><strong>Esperado:</strong> memoria total cercana a 4 GiB, normalmente algo inferior por la memoria reservada, y <code>2</code> CPU disponibles. En <code>lsblk</code> debe aparecer el disco de unos 25 GB y sus particiones. <code>df</code> muestra el espacio libre de <code>/</code>; su tamaño será menor que el del disco completo.</p>
+      <h3>4. Dirección IP y puerta de enlace</h3>
+      <pre><code>ip -br address
+ip route</code></pre>
+      <p><code>ip</code> consulta o configura la red: <code>address</code> muestra interfaces y direcciones, y <code>-br</code> resume la salida. <code>route</code> muestra las rutas, es decir, por dónde se envía el tráfico; <code>default via</code> identifica la puerta de enlace para destinos sin una ruta más específica.</p>
+      <p><strong>Esperado:</strong> una interfaz Ethernet, a menudo <code>enp0s3</code>, con IPv4 y una ruta que empieza por <code>default via</code>. Con el NAT predeterminado suelen ser <code>10.0.2.15</code> y <code>10.0.2.2</code>.</p>
+      <p><strong>Loopback (<code>lo</code>)</strong> es la interfaz que permite al equipo comunicarse consigo mismo: <code>127.0.0.1</code> en IPv4 y <code>::1</code> en IPv6 apuntan al propio equipo, así que verlas no demuestra que haya conexión a Internet.</p>
+      <p><strong>¿Para qué sirve?</strong> Por ejemplo, permite probar un servidor web desde el mismo equipo usando <code>http://127.0.0.1</code>, o que una aplicación se conecte a una base de datos instalada en ese servidor. Si un servicio escucha únicamente en loopback, no acepta conexiones directas desde otros equipos por la red. Funciona aunque no haya conexión a Internet. En esta práctica, <code>127.0.0.1</code> dentro de Ubuntu apunta a la VM; en el anfitrión apunta al anfitrión, no a Ubuntu.</p>
+      <h3>5. DNS y acceso a los repositorios</h3>
+      <pre><code>getent ahosts archive.ubuntu.com
+sudo apt update</code></pre>
+      <p><code>getent</code> consulta las fuentes de información configuradas en el sistema; <code>ahosts</code> pide direcciones de red y <code>archive.ubuntu.com</code> es el nombre que queremos resolver.</p>
+      <p><strong>Esperado:</strong> el primer comando devuelve direcciones IP; el segundo descarga o consulta los índices sin errores de resolución ni conexión. Si algunos índices fallan, no des la prueba por superada aunque apt conserve listas antiguas. No es necesario que funcione un ping para que funcionen las descargas.</p>
+      <h3>6. Servicios del sistema y hora</h3>
+      <pre><code>systemctl --failed
+timedatectl</code></pre>
+      <p><code>systemctl</code> consulta o administra unidades de systemd, como los servicios; <code>--failed</code> muestra las que han fallado. <code>timedatectl</code>, sin argumentos, muestra la fecha, la hora, la zona horaria y el estado de sincronización.</p>
+      <p><strong>Esperado:</strong> ningún servicio en estado fallido y una fecha/hora correcta, con sincronización activa una vez haya conexión. UTC puede ser una zona horaria válida en un servidor. Si aparece un servicio fallido, consulta <code>systemctl status nombre-del-servicio</code>: <code>status</code> muestra su estado y mensajes recientes; sustituye <code>nombre-del-servicio</code> por el nombre real. Si se abre una vista paginada, pulsa <strong>q</strong> para salir.</p>
+      <p>Para ordenar la salida antes de comprobar el sistema, puedes ejecutar <code>clear</code>: limpia la pantalla de la terminal sin borrar archivos y no necesita opciones.</p>
+      <figure><!-- Sustituye src por images/09-comprobaciones.png. --><img src="images/09-comprobaciones.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 09: resultados de hostname, ip -br address y systemctl --failed." /><figcaption><strong>Captura 09.</strong> Resultados de las comprobaciones del nombre del servidor, las interfaces de red y las unidades fallidas.</figcaption></figure>
+      <h3>Paso 12. Guarda el punto de partida</h3>
+      <ol><li>Comprueba que la unidad óptica virtual está vacía. Reinicia con <code>sudo reboot</code> y confirma que puedes entrar de nuevo sin la ISO.</li><li>Apaga correctamente el invitado con <code>sudo poweroff</code> (<code>poweroff</code> apaga el sistema, sin opciones adicionales) y espera a que VirtualBox indique <strong>Apagada</strong>.</li><li>En la vista <strong>Instantáneas</strong> de VirtualBox, toma una llamada <code>01-instalacion-limpia</code>. Describe la versión instalada y la fecha.</li></ol>
+      <p>La instantánea permite recuperar el punto inicial en futuras prácticas. No sustituye una copia de seguridad independiente.</p>
+      <h3>Lista final</h3>
+      <p>Marca lo que hayas comprobado. Las marcas son temporales y no se guardan entre visitas.</p>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> Ubuntu Server arranca sin la ISO.</label></li>
+        <li><label><input type="checkbox" /> Puedo entrar con mi usuario y utilizar sudo.</label></li>
+        <li><label><input type="checkbox" /> La VM tiene 4 GB de RAM, 2 CPU y el disco previsto.</label></li>
+        <li><label><input type="checkbox" /> Tiene IPv4, puerta de enlace y resolución DNS.</label></li>
+        <li><label><input type="checkbox" /> apt update termina sin errores de descarga.</label></li>
+        <li><label><input type="checkbox" /> He revisado los servicios, la hora y creado la instantánea.</label></li>
+      </ul>
+    </section>
+
+    <section class="lesson" id="problemas">
+      <p class="eyebrow">06 · Si algo no encaja</p><h2>Problemas habituales</h2>
+      <details><summary>Vuelve al instalador o no encuentra un sistema de arranque</summary><p>Tras finalizar la instalación, retira la ISO y conserva conectado el VDI. Comprueba que no has cambiado EFI desde la instalación. Si aún no has instalado Ubuntu, la ISO debe estar montada para poder iniciar el asistente.</p></details>
+      <details><summary>No se ve la contraseña o indica que no es correcta</summary><p>La consola no muestra caracteres mientras escribes contraseñas. Escríbela y pulsa Intro. Si la rechaza, revisa Bloq Mayús y la distribución del teclado. Inicia sesión con el nombre de usuario, no con el nombre completo del perfil.</p></details>
+      <details><summary>Solo aparece una pantalla de texto</summary><p>Es el resultado esperado de Ubuntu Server. Cuando veas <code>login:</code>, inicia sesión. Al aparecer el indicador de comandos ya puedes realizar las comprobaciones.</p></details>
+      <details><summary>No obtiene IP o falla el repositorio</summary><p>Comprueba Internet en el anfitrión y revisa que el adaptador de la VM está en NAT con Cable conectado. En el instalador, revisa DHCP, el proxy y la prueba del mirror. Después de instalar, utiliza <code>ip -br address</code>, <code>ip route</code> y la comprobación DNS para localizar el fallo.</p></details>
+      <details><summary>apt indica que otro proceso mantiene el bloqueo</summary><p>Puede haber una actualización automática en curso. Espera a que termine y vuelve a intentarlo. No borres los archivos de bloqueo ni interrumpas el gestor de paquetes durante una actualización.</p></details>
+      <details><summary>No puedo conectar por SSH desde el anfitrión</summary><p>Esta práctica utiliza la consola de VirtualBox y no instala OpenSSH. Para una práctica posterior de acceso remoto habrá que instalar y configurar el servicio y, si se conserva NAT, preparar una regla de reenvío de puertos. No es un fallo de esta instalación.</p></details>
+    </section>
+    <footer>
+      <p>Referencias: <a href="https://ubuntu.com/download/server">Descarga oficial de Ubuntu Server</a> · <a href="https://canonical-subiquity.readthedocs-hosted.com/en/latest/tutorial/screen-by-screen.html">Asistente de instalación</a> · <a href="https://canonical-subiquity.readthedocs-hosted.com/en/latest/howto/configure-storage.html">Almacenamiento</a> · <a href="https://download.virtualbox.org/virtualbox/7.2.2/UserManual.pdf">Manual de VirtualBox (PDF)</a>.</p>
+      <p><a href="#">Volver al principio ↑</a> · <a href="../../">Todos los recursos</a></p>
+    </footer>
+  </main>
+</body>
+</html>

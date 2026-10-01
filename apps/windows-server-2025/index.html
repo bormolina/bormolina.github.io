@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Instala Windows Server 2025 Standard Evaluation con Desktop Experience en VirtualBox. Tutorial en español con capturas pendientes y comprobaciones prácticas." />
+  <title>Windows Server 2025 en VirtualBox · Guía paso a paso</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header"><a href="../../">← Todos los recursos</a></header>
+  <main>
+    <header class="hero">
+      <h1><span>Windows Server 2025</span> en VirtualBox</h1>
+    </header>
+    <nav class="contents" aria-label="Índice del tutorial">
+      <strong>El recorrido</strong>
+      <ol><li><a href="#preparacion">Preparar</a></li><li><a href="#maquina">Crear la máquina</a></li><li><a href="#instalacion">Instalar Windows</a></li><li><a href="#ajustes">Primer arranque</a></li><li><a href="#comprobaciones">Comprobar</a></li><li><a href="#problemas">Resolver problemas</a></li></ol>
+    </nav>
+
+    <section class="lesson" id="preparacion">
+      <p class="eyebrow">01 · Antes de empezar</p><h2>Prepara el equipo y las descargas</h2>
+      <p>Esta práctica está pensada para un ordenador <strong>Intel o AMD de 64 bits</strong>, preferiblemente con 16 GB de RAM y al menos 80 GB libres. La ISO x64 de Windows Server no sirve como SO guest en un Mac con Apple Silicon ARM.</p>
+      <ol>
+        <li>Descarga (si no lo tienes aún) <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox desde Oracle</a> para tu sistema anfitrión. Ejecuta el instalador y acepta la instalación de sus componentes de red. La conexión puede interrumpirse brevemente. Reinicia si lo solicita y abre VirtualBox.</li>
+        <li>Comprueba que la virtualización de hardware (Intel VT-x o AMD-V/SVM) está habilitada en la BIOS/UEFI. En un anfitrión Windows puedes ver su estado en <strong>Administrador de tareas → Rendimiento → CPU → Virtualización</strong>.</li>
+        <li>Abre la <a href="https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025">página oficial de descargas de Windows Server 2025</a>. En la fila <strong>Spanish</strong>, pulsa <strong>64-bit edition</strong> en la columna <strong>ISO download</strong>. Si Microsoft solicita registro, completa el formulario. Guarda el archivo <code>.iso</code>; no necesitas grabarlo en un USB ni descomprimirlo.</li>
+      </ol>
+      <aside class="note"><strong>¿Qué estamos descargando?</strong><p>La ISO Evaluation permite elegir Standard o Datacenter durante la instalación. La evaluación dura 180 días y debe activarse por Internet durante los primeros 10 días para evitar apagados automáticos. Consulta las condiciones en el <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2025">centro de evaluación</a>.</p></aside>
+      <div class="check"><strong>Antes de seguir:</strong> VirtualBox se abre y tienes una ISO de Windows Server 2025 completamente descargada.</div>
+    </section>
+
+    <section class="lesson" id="maquina">
+      <p class="eyebrow">02 · El hardware virtual</p><h2>Crea una máquina virtual nueva</h2>
+      <h3>Paso 1. Nombre, sistema e ISO</h3>
+      <ol>
+        <li>Pulsa <strong>Nueva</strong> y escribe <code>WS2025-PRACTICA</code>. Elige una carpeta del anfitrión con espacio suficiente.</li>
+        <li>Selecciona la ISO descargada. Revisa el tipo <strong>Microsoft Windows</strong> y la versión <strong>Windows Server 2025 (64-bit)</strong> si está disponible. Si no aparece, usa el perfil <strong>Windows 2022 (64-bit)</strong> o el perfil de Windows Server de 64 bits más cercano. El perfil configura el hardware; la edición real se elegirá dentro del instalador.</li>
+        <li>Activa <strong>Omitir instalación desatendida</strong> (<em>Skip Unattended Installation</em>) o desmarca <strong>Instalación desatendida</strong>, según la versión. Queremos realizar el asistente de Windows manualmente.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/02-nueva-maquina.png. --><img src="images/02-nueva-maquina.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02: nombre de la máquina, ISO y opción de instalación manual." /><figcaption><strong>Captura 02.</strong> Asistente de nueva máquina: nombre, ISO y opción que desactiva la instalación desatendida.</figcaption></figure>
+      <h3>Paso 2. Memoria, procesadores y disco</h3>
+      <p>Usa esta configuración para la práctica. Son valores propuestos para la actividad, no una lista de mínimos oficiales. Deja recursos suficientes para el sistema anfitrión.</p>
+      <div class="table-wrap"><table><caption>Configuración de WS2025-PRACTICA</caption><thead><tr><th scope="col">Recurso</th><th scope="col">Valor propuesto</th></tr></thead><tbody>
+        <tr><th scope="row">RAM</th><td>4096 MB (4 GB). No asignes más RAM para esta práctica.</td></tr>
+        <tr><th scope="row">Procesadores</th><td>2 CPU virtuales, sin superar los recursos disponibles.</td></tr>
+        <tr><th scope="row">Disco</th><td>Crear uno nuevo: VDI, 80 GB, reservado dinámicamente.</td></tr>
+        <tr><th scope="row">Firmware</th><td>EFI/UEFI activado antes de instalar; mantén el mismo modo después.</td></tr>
+        <tr><th scope="row">Red</th><td>Adaptador 1 habilitado, conectado a NAT y cable conectado.</td></tr>
+      </tbody></table></div>
+      <p>Un disco dinámico crece al guardar datos hasta su límite de 80 GB; no reserva todo ese espacio al crearlo. El espacio libre real del anfitrión sigue siendo necesario. Consulta los <a href="https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements">requisitos de hardware de Microsoft</a> si el equipo es antiguo: Windows Server 2025 necesita, entre otras características, SSE4.2 y POPCNT.</p>
+      <ol>
+        <li>Asigna <strong>4096 MB (4 GB) de RAM y 2 CPU virtuales</strong>, activa EFI si el asistente ofrece esa opción y crea el disco indicado. Si aparece <strong>Reservar tamaño completo</strong>, déjalo desmarcado para que sea dinámico.</li>
+        <li>Finaliza el asistente. Con la VM apagada, abre <strong>Configuración → Sistema</strong> y revisa memoria, procesadores y EFI.</li>
+        <li>En <strong>Almacenamiento</strong>, comprueba que aparecen el VDI nuevo y la ISO en la unidad óptica.</li>
+        <li>En <strong>Red → Adaptador 1</strong>, selecciona <strong>NAT</strong> y comprueba <strong>Cable conectado</strong>. NAT permite salir a Internet a través del anfitrión; es suficiente para esta práctica.</li>
+      </ol>
+      <figure><!-- Sustituye src por images/03-resumen-hardware.png. --><img src="images/03-resumen-hardware.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 03: resumen de la máquina con RAM, CPU, disco e ISO." /><figcaption><strong>Captura 03.</strong> Resumen de VirtualBox con 4096 MB, 2 CPU, disco de 80 GB e ISO montada.</figcaption></figure>
+      <figure><!-- Sustituye src por images/04-red-nat.png. --><img src="images/04-red-nat.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 04: adaptador 1 configurado como NAT y cable conectado." /><figcaption><strong>Captura 04.</strong> Configuración de red: adaptador habilitado, NAT y cable conectado.</figcaption></figure>
+      <div class="check"><strong>Antes de arrancar:</strong> tienes una VM nueva, un único disco virtual vacío y la ISO montada.</div>
+    </section>
+
+    <section class="lesson" id="instalacion">
+      <p class="eyebrow">03 · Instalación manual</p><h2>Instala la edición correcta</h2>
+      <p>Los nombres y el orden de algunas pantallas pueden variar según la ISO. La referencia es el <a href="https://learn.microsoft.com/en-us/windows-server/get-started/install-windows-server">asistente de instalación de Microsoft</a>.</p>
+      <h3>Paso 3. Arranca desde la ISO</h3>
+      <p>Pulsa <strong>Iniciar</strong>. Si aparece <em>Press any key to boot from CD or DVD…</em>, haz clic dentro de la ventana y pulsa una tecla. Para liberar el ratón, utiliza la tecla anfitrión indicada en la barra inferior de VirtualBox (normalmente Ctrl derecho en Windows).</p>
+      <h3>Paso 4. Idioma y teclado</h3>
+      <p>Selecciona español, el formato regional que corresponda y tu distribución de teclado. Continúa con <strong>Siguiente</strong>. En el asistente nuevo, el teclado puede aparecer en una pantalla separada.</p>
+      <figure><!-- Sustituye src por images/05-idioma-teclado.png. --><img src="images/05-idioma-teclado.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 05: selección de idioma o distribución del teclado en el instalador." /><figcaption><strong>Captura 05.</strong> Configuración del teclado en el instalador de Windows Server.</figcaption></figure>
+      <h3>Paso 5. Inicia una instalación limpia</h3>
+      <p>Elige <strong>Instalar Windows Server</strong> (o <strong>Instalar ahora</strong>). Si pide aceptar la eliminación de archivos, confirma solo tras verificar que estás trabajando en la VM nueva con su disco vacío. En asistentes que preguntan el tipo de instalación, elige <strong>Personalizada: instalar solo Windows Server</strong>.</p>
+      <p>Con la ISO Evaluation, normalmente no necesitas introducir una clave comercial. Si se solicita una, usa <strong>No tengo clave de producto</strong> cuando esté disponible. Si no puedes continuar, revisa que has descargado la ISO de evaluación correcta.</p>
+      <h3>Paso 6. Standard Evaluation + Desktop Experience</h3>
+      <p>Selecciona exactamente <strong>Windows Server 2025 Standard Evaluation (Desktop Experience)</strong>. En español, el paréntesis puede indicar <strong>Experiencia de escritorio</strong>. Acepta los términos de licencia para continuar.</p>
+      <aside class="note"><strong>Detente y lee el nombre completo.</strong><p>Standard sin Desktop Experience instala Server Core. Datacenter es otra edición. No se puede cambiar de Core a Desktop Experience después de instalar: tendrías que hacer una instalación nueva. <a href="https://learn.microsoft.com/en-us/windows-server/get-started/install-options-server-core-desktop-experience">Comparación de las opciones de instalación</a>.</p></aside>
+      <figure><!-- Sustituye src por images/06-edicion-desktop.png. --><img src="images/06-edicion-desktop.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 06: Windows Server 2025 Standard Evaluation con Desktop Experience seleccionado." /><figcaption><strong>Captura 06 · La más importante.</strong> Lista de ediciones con Standard Evaluation (Desktop Experience) seleccionada y el nombre completo visible.</figcaption></figure>
+      <h3>Paso 7. Selecciona el disco virtual</h3>
+      <p>Elige el <strong>espacio sin asignar del disco 0</strong>, de aproximadamente 80 GB. Pulsa <strong>Siguiente</strong> para que Windows cree sus particiones. No necesitas crearlas manualmente. Si aparecen particiones con datos que no esperabas, vuelve a revisar el disco conectado a la VM antes de continuar.</p>
+      <figure><!-- Sustituye src por images/07-disco-destino.png. --><img src="images/07-disco-destino.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 07: espacio sin asignar del disco virtual seleccionado como destino." /><figcaption><strong>Captura 07.</strong> Disco virtual vacío de unos 80 GB seleccionado como destino.</figcaption></figure>
+      <h3>Paso 8. Confirma y espera</h3>
+      <p>Si aparece un resumen, revisa la edición y pulsa <strong>Instalar</strong>. Espera mientras copia archivos y se reinicia. En los siguientes arranques, <strong>no pulses ninguna tecla para volver a iniciar desde la ISO</strong>. Si vuelve al instalador, apaga la VM, retira la ISO de la unidad óptica virtual y vuelve a arrancar desde el disco.</p>
+      <h3>Paso 9. Crea la contraseña de Administrador</h3>
+      <p>Al finalizar, acepta los términos adicionales si aparecen y define una contraseña propia para <strong>Administrador</strong> (<em>Administrator</em> en inglés). Usa una contraseña larga con mayúsculas, minúsculas, números y símbolos; repítela y pulsa <strong>Finalizar</strong>. Comprueba la distribución del teclado si no coincide. No incluyas la contraseña en las capturas.</p>
+      <div class="check"><strong>Resultado esperado:</strong> aparece la pantalla de bloqueo de Windows Server, sin volver al asistente.</div>
+    </section>
+
+    <section class="lesson" id="ajustes">
+      <p class="eyebrow">04 · Primer arranque</p><h2>Entra y deja el servidor preparado</h2>
+      <h3>Paso 10. Inicia sesión</h3>
+      <p>En el menú de la ventana de VirtualBox utiliza <strong>Entrada → Teclado → Insertar Ctrl+Alt+Supr</strong>. Inicia sesión como Administrador con tu contraseña. Completa la elección de datos de diagnóstico si aparece. Debes ver el escritorio; el <strong>Administrador del servidor</strong> suele abrirse automáticamente y también puedes buscarlo en Inicio.</p>
+      <figure><!-- Sustituye src por images/08-primer-escritorio.png. --><img src="images/08-primer-escritorio.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 08: primer escritorio con el Administrador del servidor abierto." /><figcaption><strong>Captura 08.</strong> Escritorio de Windows Server con el Administrador del servidor abierto.</figcaption></figure>
+      <h3>Paso 11. Instala Guest Additions (recomendado)</h3>
+      <p>Estas herramientas mejoran la integración del ratón y el ajuste de pantalla. Su funcionamiento depende de la versión de VirtualBox y sus controladores.</p>
+      <ol><li>En la ventana de la VM, elige <strong>Dispositivos → Insertar imagen de CD de las Guest Additions</strong>.</li><li>Dentro del invitado, abre <strong>Explorador de archivos → Este equipo → Unidad de CD</strong> y ejecuta <code>VBoxWindowsAdditions.exe</code>.</li><li>Acepta la elevación y los controladores de Oracle, completa el asistente y reinicia el invitado.</li><li>Prueba a cambiar el tamaño de la ventana. Si no se adapta, revisa <strong>Ver → Redimensionar automáticamente la pantalla del invitado</strong>. Si el controlador falla, consulta la compatibilidad de tu versión; puedes continuar las comprobaciones con la resolución básica.</li></ol>
+      <h3>Paso 12. Actualiza y activa la evaluación</h3>
+      <p>Comprueba la fecha y la zona horaria en <strong>Configuración → Hora e idioma</strong>. Después, abre <strong>Configuración → Windows Update</strong>, busca actualizaciones e instálalas. Reinicia cuando lo pida y vuelve a buscar hasta que no queden actualizaciones importantes pendientes.</p>
+      <p>Con conexión a Internet, revisa <strong>Configuración → Sistema → Activación</strong>. Si sigue pendiente, abre PowerShell como administrador dentro de la VM y ejecuta:</p>
+      <pre><code>slmgr /ato</code></pre>
+      <p>Espera el mensaje de resultado. Si falla, anota el código y revisa la red y la hora antes de repetir. La activación de la evaluación no la convierte en una licencia permanente.</p>
+      <figure><!-- Sustituye src por images/09-windows-update.png. --><img src="images/09-windows-update.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 09: Windows Update tras instalar las actualizaciones y reiniciar." /><figcaption><strong>Captura 09.</strong> Windows Update sin reinicios ni actualizaciones importantes pendientes.</figcaption></figure>
+    </section>
+
+    <section class="lesson" id="comprobaciones">
+      <p class="eyebrow">05 · Pequeñas comprobaciones</p><h2>¿Está todo funcionando?</h2>
+      <p>Abre <strong>Inicio → Windows PowerShell → Ejecutar como administrador</strong> dentro del servidor. Ejecuta cada bloque por separado y compara lo que obtienes. Las direcciones IP y el nombre del equipo pueden variar.</p>
+      <h3>1. Edición y escritorio</h3>
+      <pre><code>winver
+DISM /online /Get-CurrentEdition</code></pre>
+      <p><strong>Esperado:</strong> Windows Server 2025 en la ventana de versión y <code>ServerStandardEval</code> en DISM. Poder usar Inicio, el Explorador y el escritorio confirma la interfaz gráfica. DISM por sí solo no distingue Desktop Experience de Core.</p>
+      <h3>2. Memoria y almacenamiento</h3>
+      <pre><code>Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory, NumberOfLogicalProcessors
+Get-Volume -DriveLetter C | Select-Object DriveLetter, Size, SizeRemaining</code></pre>
+      <p><strong>Esperado:</strong> aproximadamente 4 GB de RAM (el comando muestra bytes), 2 procesadores lógicos y espacio libre en C:. El volumen C: tendrá algo menos de 80 GB por las particiones del sistema.</p>
+      <h3>3. Configuración de red</h3>
+      <pre><code>ipconfig /all</code></pre>
+      <p><strong>Esperado:</strong> adaptador Ethernet con IPv4, puerta de enlace y DNS. En el NAT predeterminado de VirtualBox suele aparecer una IPv4 como <code>10.0.2.15</code> y puerta de enlace <code>10.0.2.2</code>. Una dirección <code>169.254.x.x</code> indica que no ha obtenido una concesión DHCP válida.</p>
+      <h3>4. DNS y acceso a Internet</h3>
+      <pre><code>Resolve-DnsName www.microsoft.com
+Test-NetConnection www.microsoft.com -Port 443</code></pre>
+      <p><strong>Esperado:</strong> el primer comando devuelve registros DNS; el segundo muestra <code>TcpTestSucceeded : True</code>. Si falla, comprueba NAT, cable conectado y la conexión del anfitrión. Que un ping falle no demuestra por sí solo que Internet esté caído: algunos equipos bloquean ICMP.</p>
+      <h3>5. Evaluación activada</h3>
+      <pre><code>slmgr /xpr</code></pre>
+      <p><strong>Esperado:</strong> una ventana con la fecha de caducidad de la activación de evaluación. Es normal que no sea permanente. Si indica un estado de notificación o falta de activación, vuelve al paso 12.</p>
+      <figure><!-- Sustituye src por images/10-comprobacion-edicion.png. --><img src="images/10-comprobacion-edicion.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 10: winver y DISM confirmando Windows Server 2025 Standard Evaluation." /><figcaption><strong>Captura 10.</strong> Ventana de winver y resultado de DISM con la edición ServerStandardEval.</figcaption></figure>
+      <h3>6. Arranque independiente y punto de partida</h3>
+      <ol><li>Apaga desde <strong>Inicio → Encendido → Apagar</strong>. Si pregunta el motivo, selecciona uno acorde al apagado de la práctica.</li><li>Con la VM apagada, ve a <strong>Configuración → Almacenamiento</strong> y retira el disco de la unidad óptica virtual. Conserva el VDI conectado.</li><li>Arranca de nuevo. Debe llegar al inicio de sesión sin la ISO. Entra y comprueba que abre el escritorio.</li><li>Apaga correctamente otra vez. En la vista <strong>Instantáneas</strong> de VirtualBox, toma una llamada <code>01-instalacion-limpia</code>, con una descripción de la configuración y la fecha.</li></ol>
+      <p>La instantánea permite volver a este estado para futuras prácticas. No sustituye una copia de seguridad ni amplía el periodo de evaluación.</p>
+      <h3>Lista final</h3>
+      <p>Marca solo lo que hayas comprobado. Estas marcas son temporales y se restablecen al recargar la página.</p>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> He instalado Standard Evaluation con escritorio.</label></li>
+        <li><label><input type="checkbox" /> La VM tiene la RAM, CPU y el disco previstos.</label></li>
+        <li><label><input type="checkbox" /> Tiene IPv4, resuelve DNS y conecta al puerto 443.</label></li>
+        <li><label><input type="checkbox" /> He revisado las actualizaciones y la activación.</label></li>
+        <li><label><input type="checkbox" /> Arranca sin ISO y puedo iniciar sesión.</label></li>
+        <li><label><input type="checkbox" /> He creado la instantánea inicial.</label></li>
+      </ul>
+    </section>
+
+    <section class="lesson" id="problemas">
+      <p class="eyebrow">06 · Si algo no encaja</p><h2>Problemas habituales</h2>
+      <details><summary>No arranca la VM o no aparecen opciones de 64 bits</summary><p>Comprueba VT-x/AMD-V en el firmware, la arquitectura del anfitrión y la versión de VirtualBox. Anota el mensaje exacto. Si menciona un hipervisor o una función de seguridad del anfitrión, consulta la documentación de Oracle antes de cambiar esa configuración.</p></details>
+      <details><summary>Aparece «No bootable medium» o una consola EFI</summary><p>Apaga la VM y revisa que la ISO está montada en la unidad óptica virtual. Durante la instalación, arranca desde ella. Después, conserva el disco VDI y el mismo modo EFI utilizado al instalar.</p></details>
+      <details><summary>Solo veo una consola o SConfig</summary><p>Probablemente elegiste Server Core. Si instalaste Core, crea de nuevo la instalación de la práctica y selecciona Standard Evaluation con Desktop Experience. No se añade el escritorio instalando Guest Additions.</p></details>
+      <details><summary>El instalador vuelve a empezar tras reiniciar</summary><p>No pulses una tecla en el aviso de arranque desde CD/DVD después de la primera vez. Si sigue ocurriendo, retira la ISO y arranca desde el disco virtual donde ya se ha instalado Windows.</p></details>
+      <details><summary>No funciona Internet</summary><p>Comprueba primero Internet en el anfitrión. Con la VM apagada, verifica Adaptador 1, NAT y Cable conectado. En el invitado, deja IPv4 y DNS automáticos para esta práctica y repite las pruebas. No hace falta desactivar el firewall.</p></details>
+      <details><summary>La máquina va muy lenta o la pantalla no se ajusta</summary><p>Comprueba que el anfitrión no se ha quedado sin RAM ni espacio. Ajusta los recursos con la VM apagada. Para la pantalla, revisa Guest Additions y el ajuste automático del invitado. Las actualizaciones iniciales pueden consumir bastante CPU y disco.</p></details>
+    </section>
+    <footer>
+      <p>Referencias: <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2025">Microsoft Evaluation Center</a> · <a href="https://learn.microsoft.com/en-us/windows-server/get-started/install-windows-server">Instalación de Windows Server</a> · <a href="https://download.virtualbox.org/virtualbox/7.2.2/UserManual.pdf">Manual de Oracle VirtualBox 7.2 (PDF)</a>.</p>
+      <p><a href="#">Volver al principio ↑</a> · <a href="../../">Todos los recursos</a></p>
+    </footer>
+  </main>
+</body>
+</html>
