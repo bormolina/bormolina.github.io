@@ -50,12 +50,12 @@
         <li>Sin salir del asistente, abre el apartado <strong>Hardware</strong>. En <strong>Memoria base</strong>, escribe <strong>4096 MB (4 GB)</strong>. En <strong>Procesadores</strong>, selecciona <strong>2</strong>.</li>
         <li>Activa <strong>EFI / Usar EFI</strong> en ese apartado.</li>
       </ol>
-      <figure><!-- Sustituye src por images/02a-hardware.png. --><img src="images/02a-hardware.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02a: hardware con 4096 MB de RAM, 2 CPU y EFI activado." /><figcaption><strong>Captura 02a.</strong> Apartado Hardware del asistente: 4096 MB de RAM, 2 CPU y EFI activado.</figcaption></figure>
+      <figure><!-- Sustituye src por images/02a-hardware.png. --><img src="images/ubuntu-server-2-1.png" width="1200" height="420" loading="lazy" alt="Captura pendiente 02a: hardware con 4096 MB de RAM, 2 CPU y EFI activado." /><figcaption><strong>Captura 02a.</strong> Apartado Hardware del asistente: 4096 MB de RAM, 2 CPU y EFI activado.</figcaption></figure>
       <ol start="3">
         <li>Abre el apartado <strong>Disco duro</strong> y selecciona <strong>Crear un disco duro virtual ahora</strong>. En <strong>Tamaño del disco</strong>, introduce <strong>25 GB</strong>. Este es el campo donde se elige la capacidad del disco.</li>
         <li>Selecciona <strong>VDI</strong> si aparece el selector de formato. Deja desmarcada <strong>Reservar tamaño completo / Pre-allocate Full Size</strong> para que el almacenamiento sea dinámico.</li>
       </ol>
-      <figure><!-- Sustituye src por images/02b-disco-vdi.png. --><img src="images/02b-disco-vdi.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02b: creación del disco VDI de 25 GB con reserva dinámica." /><figcaption><strong>Captura 02b.</strong> Apartado Disco duro del asistente: disco nuevo VDI de 25 GB y reserva de tamaño completo desactivada.</figcaption></figure>
+      <figure><!-- Sustituye src por images/02b-disco-vdi.png. --><img src="images/ubuntu-server-2-2.png" width="1200" height="420" loading="lazy" alt="Captura pendiente 02b: creación del disco VDI de 25 GB con reserva dinámica." /><figcaption><strong>Captura 02b.</strong> Apartado Disco duro del asistente: disco nuevo VDI de 25 GB y reserva de tamaño completo desactivada.</figcaption></figure>
       <p>El VDI dinámico ocupa espacio a medida que guardas datos, hasta su límite. Los 25 GB son la capacidad del disco virtual; el anfitrión debe mantener espacio libre para que pueda crecer.</p>
       <p>Revisa las opciones elegidas o la pantalla de resumen: ISO de Ubuntu Server, instalación manual, <strong>4096 MB, 2 CPU, EFI y disco nuevo de 25 GB</strong>. Ahora sí, pulsa <strong>Terminar</strong>. VirtualBox montará la ISO seleccionada y creará el disco con esos valores.</p>
     </section>
