@@ -68,7 +68,7 @@
         <li>Comprueba que <strong>Habilitar adaptador de red</strong> está marcado y que <strong>Conectar a</strong> muestra <strong>NAT</strong>. Si ya está así, déjalo como está.</li>
         <li>Comprueba también <strong>Cable conectado</strong>; despliega las opciones avanzadas si es necesario. Si corriges algún valor, guarda con <strong>Aceptar</strong>.</li>
       </ol>
-      <figure><!-- Sustituye src por images/02c-red-nat.png. --><img src="images/02c-red-nat.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 02c: adaptador de red habilitado, NAT y cable conectado tras crear la VM." /><figcaption><strong>Captura 02c.</strong> Comprobación posterior a la creación: Adaptador 1 habilitado, conexión NAT y Cable conectado.</figcaption></figure>
+      
       <div class="check"><strong>Lista para arrancar:</strong> la VM tiene la ISO, el disco nuevo y la red comprobados. Continúa con la instalación.</div>
     </section>
 
@@ -81,7 +81,7 @@
       <h3>Paso 4. Idioma, teclado y tipo de instalación</h3>
       <p>Selecciona <strong>Español</strong> si está disponible. Si la consola solo ofrece inglés, puedes continuar con los nombres ingleses de esta guía. Elige la distribución de teclado que utilizas, por ejemplo <strong>Spanish</strong>, y comprueba su variante.</p>
       <p>Si ofrece actualizar el instalador, hazlo con conexión a Internet y espera a que se reabra.</p>
-      <figure><!-- Sustituye src por images/03-teclado.png. --><img src="images/03-teclado.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 03: distribución y variante del teclado en el instalador." /><figcaption><strong>Captura 03.</strong> Distribución y variante del teclado seleccionadas en el instalador.</figcaption></figure>
+      <figure><!-- Sustituye src por images/03-teclado.png. --><img src="images/ubuntu-server-3.PNG" width="1200" height="420" loading="lazy" alt="Captura pendiente 03: distribución y variante del teclado en el instalador." /><figcaption><strong>Captura 03.</strong> Distribución y variante del teclado seleccionadas en el instalador.</figcaption></figure>
       <h4>Después del teclado: Choose the type of installation</h4>
       <ul>
         <li>Mantén seleccionado <strong>Ubuntu Server</strong>. Incluye una selección de herramientas para administrar el servidor desde la consola, adecuada para esta práctica.</li>
@@ -105,7 +105,7 @@
         <p><strong>En esta práctica solo tenemos una interfaz, <code>enp0s3</code>.</strong> No hay un segundo enlace que aporte respaldo o capacidad adicional. La conexión NAT y DHCP ya cubre lo que necesitamos para instalar y descargar actualizaciones, así que dejamos <strong>Create bond</strong> sin utilizar.</p>
         <p>También se puede practicar bonding en máquinas virtuales con varias interfaces, pero añadir dos tarjetas virtuales no garantiza dos conexiones físicas independientes. Si ambas dependen de la misma conexión del anfitrión, el bond no evita que su caída deje a la VM sin Internet. <a href="https://help.ubuntu.com/community/UbuntuBonding">Más información sobre bonding en Ubuntu</a>.</p>
       </aside>
-      <figure><!-- Sustituye src por images/04-red-dhcp.png. --><img src="images/04-red-dhcp.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 04: interfaz Ethernet con dirección IPv4 obtenida mediante DHCP." /><figcaption><strong>Captura 04.</strong> Red del instalador con una IPv4 asignada. El nombre de la interfaz puede variar.</figcaption></figure>
+      <figure><!-- Sustituye src por images/04-red-dhcp.png. --><img src="images/ubuntu-server-5.PNG" width="1200" height="420" loading="lazy" alt="Captura pendiente 04: interfaz Ethernet con dirección IPv4 obtenida mediante DHCP." /><figcaption><strong>Captura 04.</strong> Red del instalador con una IPv4 asignada. El nombre de la interfaz puede variar.</figcaption></figure>
       <h4>¿Qué es un mirror y qué comprueba esta pantalla?</h4>
       <p>Un <strong>repositorio</strong> contiene paquetes de software y sus índices: las listas de programas y versiones disponibles. Un <strong>mirror</strong> es un servidor que ofrece una copia de ese contenido. Ubuntu lo utiliza para descargar programas y actualizaciones sin tener que buscar instaladores por distintas páginas web.</p>
       <p>Para esta práctica conservamos <code>http://archive.ubuntu.com/ubuntu/</code>, la dirección propuesta. Cambiarla tendría sentido si el centro indicara un servidor propio o si otro mirror oficial ofreciera mejor disponibilidad o velocidad. No hay que escribir aquí la IP de nuestra VM ni la puerta de enlace.</p>
@@ -136,13 +136,13 @@
       <p>Los tamaños pueden variar ligeramente según el instalador. La raíz ocupa menos de 25 GB porque parte del disco se reserva para EFI y una pequeña cantidad para la estructura y alineación de las particiones. Estos valores indican la capacidad asignada, no cuánto ocupa ya Ubuntu.</p>
       <p><strong>No available devices</strong> significa que no quedan dispositivos o espacio sin asignar disponibles para añadir al esquema: el disco ya aparece en <strong>Dispositivos utilizados</strong>. No significa que Ubuntu se haya quedado sin espacio libre para guardar archivos. Las opciones RAID y LVM desactivadas no son un error ni hacen falta para este reparto.</p>
       <p><strong>new</strong> y <strong>to be formatted</strong> indican las operaciones previstas al confirmar. Si el resumen coincide, pulsa <strong>Hecho</strong> y, en el aviso de borrado posterior, confirma <strong>Continuar</strong> tras comprobar de nuevo que se trata del disco virtual de esta práctica. <strong>Restablecer</strong> descarta el reparto propuesto; no lo pulses si quieres conservarlo.</p>
-      <figure><!-- Sustituye src por images/05-almacenamiento.png. --><img src="images/05-almacenamiento.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 05: raíz ext4 de 23.948G y partición EFI FAT32 de 1.049G en el disco virtual." /><figcaption><strong>Captura 05.</strong> Resumen de Storage configuration: disco de 25 GB, raíz ext4 en / y partición FAT32 en /boot/efi, antes de confirmar la escritura.</figcaption></figure>
+      <figure><!-- Sustituye src por images/05-almacenamiento.png. --><img src="images/ubuntu-server-7.PNG" width="1200" height="420" loading="lazy" alt="Captura pendiente 05: raíz ext4 de 23.948G y partición EFI FAT32 de 1.049G en el disco virtual." /><figcaption><strong>Captura 05.</strong> Resumen de Storage configuration: disco de 25 GB, raíz ext4 en / y partición FAT32 en /boot/efi, antes de confirmar la escritura.</figcaption></figure>
       <h3>Paso 7. Crea tu usuario</h3>
       <p>Para evitar confusiones con las credenciales, usaremos siempre <code>usuario</code> como nombre de usuario y contraseña en esta práctica. Completa <strong>Profile configuration</strong> así:</p>
       <ul><li><strong>Su nombre:</strong> <code>Usuario</code>. Es el nombre descriptivo de la cuenta.</li><li><strong>Your server’s name:</strong> <code>ubuntu-practica</code>. Identifica el servidor; usamos minúsculas y un guion, sin espacios ni tildes.</li><li><strong>Elija un nombre de usuario:</strong> <code>usuario</code>. Es el identificador que escribirás para iniciar sesión.</li><li><strong>Elija una contraseña:</strong> <code>usuario</code>.</li><li><strong>Confirme la contraseña:</strong> <code>usuario</code>.</li></ul>
       <aside class="note"><strong>Solo para esta práctica: nunca uses una contraseña así en producción.</strong><p><code>usuario</code> es una contraseña fácil de adivinar y coincide con el nombre de la cuenta. La usamos únicamente para simplificar esta VM de aprendizaje. En un servidor real utiliza una contraseña larga, única y difícil de adivinar; cambia estas credenciales antes de reutilizar la VM fuera de la práctica o exponer servicios a la red.</p></aside>
       <p>Este usuario podrá administrar el sistema con <code>sudo</code>, que solicitará la misma contraseña. El nombre de la VM en VirtualBox y el nombre del servidor dentro de Ubuntu son ajustes distintos. Una vez completados los campos, selecciona <strong>Hecho</strong> y pulsa <strong>Intro</strong>.</p>
-      <figure><!-- Sustituye src por images/06-perfil.png. --><img src="images/06-perfil.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 06: perfil con servidor ubuntu-practica y usuario usuario." /><figcaption><strong>Captura 06.</strong> Perfil de la cuenta <code>usuario</code> y nombre del servidor <code>ubuntu-practica</code>.</figcaption></figure>
+      
       <h3>Paso 8. Servicios opcionales</h3>
       <h4>Upgrade to Ubuntu Pro</h4>
       <p>Mantén seleccionado <strong>Skip for now</strong> (omitir por ahora), selecciona <strong>Continuar</strong> y pulsa <strong>Intro</strong>.</p>
@@ -165,7 +165,6 @@
       <p>Cuando aparezca <strong>Instalando el sistema</strong>, Ubuntu ya se está instalando. Las líneas de texto muestran el registro de las tareas que realiza: copiar archivos, instalar paquetes y configurar el sistema. <strong>Ahora toca tener paciencia:</strong> puede tardar varios minutos según el equipo y la conexión. No tienes que escribir nada; no apagues ni reinicies la VM durante este proceso. Espera a que el instalador indique que ha terminado y ofrezca reiniciar.</p>
       <p>Espera a que termine la instalación y pulsa <strong>Reiniciar ahora / Reboot Now</strong>. Cuando solicite retirar el medio, usa <strong>Dispositivos → Unidades ópticas → Retirar disco de la unidad virtual</strong> en VirtualBox. Después pulsa Intro dentro de la VM.</p>
       <p>Si no permite retirar la ISO, espera a que finalice la instalación y llegue a ese aviso; entonces apaga la VM y retírala desde <strong>Configuración → Almacenamiento</strong>. Conserva conectado el VDI y vuelve a iniciar.</p>
-      <figure><!-- Sustituye src por images/07-instalacion-completa.png. --><img src="images/07-instalacion-completa.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 07: instalación completada y opción para reiniciar." /><figcaption><strong>Captura 07.</strong> Pantalla que confirma que la instalación ha terminado, antes de reiniciar.</figcaption></figure>
     </section>
 
     <section class="lesson" id="ajustes">
@@ -173,7 +172,6 @@
       <h3>Paso 10. Entra en la consola</h3>
       <p>Espera a que aparezca <code>ubuntu-practica login:</code>. Escribe <code>usuario</code> y pulsa Intro. Introduce la contraseña: <strong>no aparecerán letras ni asteriscos mientras escribes</strong>. Es normal.</p>
       <p>Tras entrar verás un indicador parecido a <code>usuario@ubuntu-practica:~$</code>. Si los mensajes del primer arranque ocultan el inicio de sesión, espera a que terminen y pulsa Intro.</p>
-      <figure><!-- Sustituye src por images/08-primer-acceso.png. --><img src="images/08-primer-acceso.svg" width="1200" height="420" loading="lazy" alt="Captura pendiente 08: consola tras iniciar sesión como usuario en ubuntu-practica." /><figcaption><strong>Captura 08.</strong> Primer acceso correcto con el indicador de comandos visible.</figcaption></figure>
       <h3>Paso 11. Instala las actualizaciones</h3>
       <p>Ejecuta estos comandos uno a uno <strong>dentro de Ubuntu</strong>. Escribe solo el comando, sin copiar el indicador <code>$</code>.</p>
       <pre><code>sudo apt update

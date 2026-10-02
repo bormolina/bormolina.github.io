@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
-  <rect width="1200" height="420" fill="#edf3fa"/>
-  <rect x="24" y="24" width="1152" height="372" rx="12" fill="none" stroke="#a9bed6" stroke-width="2" stroke-dasharray="10 8"/>
-  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
-    <text x="600" y="125" fill="#145cad" font-size="22" font-weight="bold" letter-spacing="3">CAPTURA 03 · PENDIENTE</text>
-    <text x="600" y="202" fill="#233246" font-size="26" font-weight="bold">Poner captura de distribución del teclado</text>
-    <text x="600" y="320" fill="#465e78" font-size="19">images/03-teclado.png</text>
-  </g>
-</svg>
