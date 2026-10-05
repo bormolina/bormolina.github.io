@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Pizarra de avisos a pantalla completa." />
+    <title>Aviso</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="board" aria-live="polite">
+      <p class="message" id="message">Escribe un aviso</p>
+    </main>
+
+    <div class="corner-emojis warning-emojis" aria-hidden="true">⚠️ 🚨 ☢️</div>
+    <div class="corner-emojis fun-emojis" id="fun-emojis" aria-hidden="true"></div>
+
+    <div class="controls" aria-label="Controles de la pizarra">
+      <button class="control-button" id="edit-button" type="button" aria-label="Escribir un aviso" title="Escribir un aviso">
+        <span aria-hidden="true">✎</span>
+        <span class="button-label">Escribir</span>
+      </button>
+      <button class="control-button attention-button" id="attention-button" type="button" aria-pressed="false">
+        <span aria-hidden="true">!</span>
+        <span class="button-label">Prestad atención</span>
+      </button>
+    </div>
+
+    <dialog id="message-dialog" aria-labelledby="dialog-title">
+      <form id="message-form" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Pizarra</p>
+            <h1 id="dialog-title">Escribe el aviso</h1>
+          </div>
+          <button class="close-button" value="cancel" type="submit" aria-label="Cerrar">×</button>
+        </div>
+        <label for="message-input">Mensaje</label>
+        <textarea id="message-input" rows="4" maxlength="500" required placeholder="Por ejemplo: Reunión en el aula 3"></textarea>
+        <div class="dialog-footer">
+          <span>Enter para mostrar · Mayús + Enter para nueva línea</span>
+          <button class="show-button" value="default" type="submit">Mostrar aviso</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
