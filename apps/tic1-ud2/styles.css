@@ -103,6 +103,11 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .65
 .character { min-width: 34px; padding: 5px; border-radius: 4px; text-align: center; }
 .character.good { color: var(--green); background: var(--pale-green); }
 .character.bad { color: var(--red); background: var(--pale-red); }
+.decoder-rules p:not(.prompt-label) { margin: 10px 0 0; color: #444; line-height: 1.55; }
+.decoder-rules code { padding: 2px 4px; border-radius: 3px; background: var(--pale-blue); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.initial-form { margin-bottom: 22px; }
+.hex-message { display: flex; flex-wrap: wrap; gap: 8px; }
+.hex-message span { padding: 7px 9px; border: 1px solid #b8c8d6; border-radius: 4px; background: var(--pale-blue); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; }
 .reference-card { margin-top: 18px; }
 .reference-card summary { cursor: pointer; font-weight: 700; }
 .ascii-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 5px 12px; max-height: 300px; margin-top: 16px; overflow-y: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .84rem; }

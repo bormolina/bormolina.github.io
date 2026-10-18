@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Decode a hexadecimal message using a circular alphabet and your initial.">
+  <title>Message decoder · Let’s practise</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <a class="back-link" href="../">← Unit 2 activities</a>
+    <span class="progress">12 / 12</span>
+  </header>
+  <main>
+    <p class="lesson-label">Let’s practise · Message decoder</p>
+    <h1>Decode your secret message</h1>
+    <p class="intro">Your initial changes the code, so different students may receive different hexadecimal messages.</p>
+
+    <section class="exercise">
+      <div class="prompt-card decoder-rules">
+        <p class="prompt-label">How the code works</p>
+        <p>Use a circular alphabet with 27 symbols: the letters A–Z followed by a space. The messages are in English, so the alphabet does not include Ñ or accented letters. Your initial is assigned <code>0x00</code>, the next symbol is <code>0x01</code>, and the sequence continues around to A after the space.</p>
+        <p>For each character, the encoded value is <code>c = (p - k + 27) % 27</code>. Here, <code>p</code> is the character position and <code>k</code> is the position of your initial, with A = 0.</p>
+      </div>
+
+      <form class="answer-form initial-form" id="initial-form" novalidate>
+        <label for="initial">Your initial</label>
+        <div class="answer-row">
+          <input id="initial" type="text" maxlength="1" autocomplete="off" autocapitalize="characters" required>
+          <button type="submit">Create message</button>
+        </div>
+        <div class="feedback" id="initial-feedback" role="status" aria-live="polite"></div>
+      </form>
+
+      <div id="decoder" hidden>
+        <div class="prompt-card">
+          <p class="prompt-label">Hexadecimal message</p>
+          <div class="hex-message" id="hex-message" aria-label="Encoded hexadecimal message"></div>
+        </div>
+        <form class="answer-form" id="answer-form" novalidate>
+          <label for="answer">Decoded phrase</label>
+          <div class="answer-row">
+            <input id="answer" type="text" autocomplete="off" autocapitalize="characters" required>
+            <button type="submit">Check answer</button>
+          </div>
+        </form>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
