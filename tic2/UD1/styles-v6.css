@@ -1,0 +1,127 @@
+/* Include borders and padding in element widths */
+* {
+  box-sizing: border-box;
+}
+
+/* Page colours and normal text */
+body {
+  background-color: #f3efe5;
+  color: #29231f;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+}
+
+/* Museum-style headings */
+h1,
+h2,
+h3 {
+  color: #4a271c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Heading hierarchy */
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 34px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+/* Clearly recognisable links */
+a {
+  color: #79321f;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #3b2119;
+  text-decoration: none;
+}
+
+/* Centre the main content and give it breathing room */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Separate each section with a simple box */
+section {
+  background-color: #faf7ef;
+  padding: 24px;
+  border: 1px solid #d8cdbd;
+  margin-bottom: 24px;
+}
+
+/* Distinguish the nested Black Paintings section */
+#black-paintings {
+  background-color: #eee4d2;
+}
+
+/* Keep images inside their containers */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Flexbox navigation with two groups */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background-color: #4a271c;
+  color: #f3efe5;
+  padding: 16px 24px;
+}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #f3efe5;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Introductory biography text and portrait */
+.biography-intro {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.biography-text {
+  flex: 1;
+}
+
+.biography-portrait {
+  max-width: 280px;
+  height: auto;
+}
+
+/* Stack the biography content on small screens */
+@media (max-width: 600px) {
+  .biography-intro {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .biography-portrait {
+    max-width: 100%;
+  }
+}
