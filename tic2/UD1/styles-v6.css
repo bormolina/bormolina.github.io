@@ -23,6 +23,7 @@ h3 {
 /* Heading hierarchy */
 h1 {
   font-size: 48px;
+  text-align: center;
 }
 
 h2 {
@@ -113,6 +114,10 @@ nav a:hover {
 .biography-portrait {
   max-width: 280px;
   height: auto;
+}
+
+footer{
+  padding: 16px 24px;
 }
 
 /* Stack the biography content on small screens */
