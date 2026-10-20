@@ -1,0 +1,70 @@
+/* Include borders and padding in element widths */
+* {
+  box-sizing: border-box;
+}
+
+/* Page colours and normal text */
+body {
+  background-color: #f3efe5;
+  color: #29231f;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+}
+
+/* Museum-style headings */
+h1,
+h2,
+h3 {
+  color: #4a271c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Heading hierarchy */
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 34px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+/* Clearly recognisable links */
+a {
+  color: #79321f;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #3b2119;
+  text-decoration: none;
+}
+
+/* Centre the main content and give it breathing room */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Separate each section with a simple box */
+section {
+  background-color: #faf7ef;
+  padding: 24px;
+  border: 1px solid #d8cdbd;
+  margin-bottom: 24px;
+}
+
+/* Distinguish the nested Black Paintings section */
+#black-paintings {
+  background-color: #eee4d2;
+}
+
+/* Keep images inside their containers */
+img {
+  max-width: 100%;
+  height: auto;
+}
