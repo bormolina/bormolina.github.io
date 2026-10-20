@@ -1,0 +1,39 @@
+/* Page colours and normal text */
+body {
+  background-color: #f3efe5;
+  color: #29231f;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+}
+
+/* Museum-style headings */
+h1,
+h2,
+h3 {
+  color: #4a271c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Heading hierarchy */
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 34px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+/* Clearly recognisable links */
+a {
+  color: #79321f;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #3b2119;
+  text-decoration: none;
+}
